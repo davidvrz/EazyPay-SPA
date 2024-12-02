@@ -2,8 +2,8 @@ import React from 'react';
 
 const Dashboard = () => {
   const handleLogout = () => {
-    localStorage.removeItem('username');  // Limpiar el nombre de usuario
-    window.location.href = '/';  // Redirigir al login (o recargar la página)
+    localStorage.removeItem('username');
+    window.location.href = '/';  // Redirect to login (or reload the page)
   };
 
   return (

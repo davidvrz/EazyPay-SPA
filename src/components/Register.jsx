@@ -22,11 +22,10 @@ const Register = ({ changeView }) => {
 
       if (response.ok) {
         const data = await response.text();
-        console.log(data); // Puede mostrar el mensaje del servidor
-        changeView('login');  // Cambiar a la vista de login después de registrar
+        changeView('login');  // Change into login view after register
       } else {
         const data = await response.json();
-        setError(data.errors.join(', ')); // Mostrar errores de validación
+        setError(data.errors.join(', ')); // Show validation errors
       }
     } catch (err) {
       setError('Registration failed');

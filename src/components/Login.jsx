@@ -18,11 +18,10 @@ const Login = ({ changeView }) => {
 
       if (response.ok) {
         const data = await response.text();
-        console.log(data); // Puede mostrar el mensaje del servidor
 
-        // Guardar el token o cualquier otra información que la API retorne
+        // Save token and other info that API returns
         localStorage.setItem('username', username);
-        changeView('dashboard');  // Cambiar a la vista de dashboard
+        changeView('dashboard');  // Change into Dashboard view
       } else {
         throw new Error('Login failed');
       }

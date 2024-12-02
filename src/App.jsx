@@ -4,16 +4,16 @@ import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 
 function App() {
-  const [currentView, setCurrentView] = useState('login');  // Vista inicial es login
+  const [currentView, setCurrentView] = useState('login');  // Initial view is login
 
-  // Función para cambiar la vista actual
+  // Change current view
   const changeView = (view) => {
     setCurrentView(view);
   };
 
   return (
     <div className="App">
-      {/* Mostrar la vista de Login, Register o Dashboard */}
+      {/* Show Login, Register or Dashboard view */}
       {currentView === 'login' && <Login changeView={changeView} />}
       {currentView === 'register' && <Register changeView={changeView} />}
       {currentView === 'dashboard' && <Dashboard />}
