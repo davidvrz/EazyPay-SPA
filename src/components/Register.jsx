@@ -12,7 +12,7 @@ const Register = ({ changeView }) => {
     const userData = { username, email, password };
 
     try {
-      const response = await fetch('http://localhost:80/eazypay-api/rest/user', {
+      const response = await fetch('http://localhost:80/rest/user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
