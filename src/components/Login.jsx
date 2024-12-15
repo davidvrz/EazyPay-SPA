@@ -12,7 +12,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`http://localhost:80/eazypay-api/rest/user/${username}`, {
+            const response = await fetch(`http://localhost:80/rest/user/${username}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Basic ' + btoa(username + ':' + password), // Basic Auth
