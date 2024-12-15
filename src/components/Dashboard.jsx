@@ -1,4 +1,5 @@
 import React from 'react';
+import GroupList from './GroupList';
 
 const Dashboard = () => {
   const handleLogout = () => {
@@ -9,6 +10,8 @@ const Dashboard = () => {
   return (
     <div>
       <h1>Welcome to your Dashboard!</h1>
+
+      <GroupList />
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
