@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import '../styles/components/Auth.css'
+import { useNavigate } from 'react-router-dom';
+import '../styles/components/Auth.css';
 
-const Register = ({ changeView }) => {
+const Register = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -23,7 +25,7 @@ const Register = ({ changeView }) => {
 
             if (response.ok) {
                 const data = await response.text();
-                changeView('login');  // Change into login view after register
+                navigate('/'); // Navigate to login after successful registration
             } else {
                 const data = await response.json();
                 setError(data.errors.join(', ')); // Show validation errors
@@ -36,7 +38,6 @@ const Register = ({ changeView }) => {
     return (
         <div className="register-section">
             <div className="register-form-container">
-                {/* <h1>Register</h1> */}
                 <div className="form-icon">
                     <img src="images/isotype.png" alt="icon" />
                 </div>
@@ -71,12 +72,12 @@ const Register = ({ changeView }) => {
                         />
                         <span className="error-message">Provisional error</span>
                     </div>
-                    {error && <p>{error}</p>}
+                    {error && <p className="error-text">{error}</p>}
                     <button type="submit">Register</button>
                 </form>
                 <p>
                     Already have an account?{' '}
-                    <button onClick={() => changeView('login')}>Login</button>
+                    <button onClick={() => navigate('/')}>Login</button>
                 </p>
             </div>
         </div>

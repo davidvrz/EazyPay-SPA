@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import '../styles/components/Auth.css'
+import { useNavigate } from 'react-router-dom';
+import '../styles/components/Auth.css';
 
-const Login = ({ changeView }) => {
+const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`'http://localhost:80/eazypay-api/rest/user/${username}`, {
+            const response = await fetch(`http://localhost:80/eazypay-api/rest/user/${username}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Basic ' + btoa(username + ':' + password), // Basic Auth
@@ -22,7 +24,7 @@ const Login = ({ changeView }) => {
 
                 // Save token and other info that API returns
                 localStorage.setItem('username', username);
-                changeView('dashboard');  // Change into Dashboard view
+                navigate('/dashboard'); // Navigate to Dashboard
             } else {
                 throw new Error('Login failed');
             }
@@ -34,12 +36,11 @@ const Login = ({ changeView }) => {
     return (
         <div className="register-section">
             <div className="register-form-container">
-                {/* <h1>Login</h1> */}
                 <div className="form-icon">
                     <img src="images/isotype.png" alt="icon" />
                 </div>
                 <form onSubmit={handleLogin}>
-                     <div className="form-group">
+                    <div className="form-group">
                         <label>Username</label>
                         <input
                             type="text"
@@ -49,7 +50,7 @@ const Login = ({ changeView }) => {
                         />
                         <span className="error-message">Provisional error</span>
                     </div>
-                     <div className="form-group">
+                    <div className="form-group">
                         <label>Password</label>
                         <input
                             type="password"
@@ -59,12 +60,12 @@ const Login = ({ changeView }) => {
                         />
                         <span className="error-message">Provisional error</span>
                     </div>
-                    {error && <p>{error}</p>}
+                    {error && <p className="error-text">{error}</p>}
                     <button type="submit">Login</button>
                 </form>
                 <p>
                     Don't have an account?{' '}
-                    <button onClick={() => changeView('register')}>Register</button>
+                    <button onClick={() => navigate('/register')}>Register</button>
                 </p>
             </div>
         </div>
