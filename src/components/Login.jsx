@@ -24,6 +24,7 @@ const Login = () => {
 
                 // Save token and other info that API returns
                 localStorage.setItem('username', username);
+                localStorage.setItem('password', password);
                 navigate('/dashboard'); // Navigate to Dashboard
             } else {
                 throw new Error('Login failed');
@@ -64,7 +65,7 @@ const Login = () => {
                     <button type="submit">Login</button>
                 </form>
                 <p>
-                    Don't have an account?{' '}
+                    Don&apos;t have an account?{' '}
                     <button onClick={() => navigate('/register')}>Register</button>
                 </p>
             </div>
