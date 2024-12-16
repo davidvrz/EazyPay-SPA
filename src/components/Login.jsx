@@ -25,7 +25,7 @@ const Login = () => {
                 // Save token and other info that API returns
                 localStorage.setItem('username', username);
                 localStorage.setItem('password', password);
-                navigate('/dashboard'); // Navigate to Dashboard
+                navigate('/home'); // Navigate to Dashboard
             } else {
                 throw new Error('Login failed');
             }
