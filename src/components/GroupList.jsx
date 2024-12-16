@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import '../styles/components/GroupList.css'
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import '../styles/components/GroupList.css';
 
 const GroupList = () => {
     const [groups, setGroups] = useState([]);
@@ -90,12 +91,9 @@ const GroupList = () => {
             </div>
 
             {currentUser && (
-                <a
-                    href="index.php?controller=groups&action=add"
-                    className="add-group-btn"
-                >
+                < Link className="add-group-btn" to={'/addgroup'}>
                     Create group
-                </a>
+                </Link>
             )}
         </div>
     );
