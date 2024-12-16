@@ -5,7 +5,6 @@ import GroupList from './components/GroupList';
 import AddGroup from './components/AddGroup'
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import GroupList from './components/GroupList';
 
 function App() {
   return (
