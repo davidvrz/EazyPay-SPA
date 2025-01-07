@@ -21,14 +21,21 @@
     margin-left: 20px;
 }
 
-.navbar-links a {
+.navbar-links button {
+    background: none;
+    border: none;
     color: #fff;
-    text-decoration: none;
     font-size: 18px;
+    cursor: pointer;
+    text-decoration: none;
 }
 
-.navbar-links a:hover {
+.navbar-links button:hover {
     text-decoration: underline;
+}
+
+.navbar-links li:last-child {
+    margin-left: 20px;
 }
 
 .navbar-toggle {
