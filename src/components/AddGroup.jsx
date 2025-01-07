@@ -4,7 +4,7 @@ import '../styles/components/AddGroup.css';
 const AddGroup = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [members, setMembers] = useState(["currentuser"]); // Incluye el usuario actual por defecto
+  const [members, setMembers] = useState([localStorage.getItem("username")]);
   const [errors, setErrors] = useState({});
 
   const handleAddMember = () => {
@@ -24,15 +24,24 @@ const AddGroup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors({}); // Limpiar errores previos
+    setErrors({});
 
     const data = { name, description, members };
+
+    const username = localStorage.getItem("username");
+    const password = localStorage.getItem("password");
+
+    if (!username || !password) {
+      setErrors({ general: "User is not authenticated. Please log in." });
+      return;
+    }
 
     try {
       const response = await fetch("http://localhost:80/rest/group", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": "Basic " + btoa(username + ":" + password),
         },
         body: JSON.stringify(data),
       });
@@ -42,7 +51,6 @@ const AddGroup = () => {
         setErrors(errorData);
       } else {
         alert("Group created successfully!");
-        // Redirigir o limpiar formulario
         setName("");
         setDescription("");
         setMembers(["currentuser"]);
@@ -93,7 +101,7 @@ const AddGroup = () => {
                 name="members[]"
                 value={member}
                 onChange={(e) => handleMemberChange(index, e.target.value)}
-                readOnly={index === 0} // El primer miembro (usuario actual) es de solo lectura
+                readOnly={index === 0}
               />
               {index > 0 && (
                 <button
