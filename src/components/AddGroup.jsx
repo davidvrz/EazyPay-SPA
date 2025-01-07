@@ -63,7 +63,7 @@ const AddGroup = () => {
   return (
     <div className="main">
       <div className="top-icon">
-        <img src="images/isotype.png" alt="Groups Icon" />
+        <img src="/images/isotype.png" alt="Groups Icon" />
       </div>
 
       <h1 className="main-title">Create Group</h1>

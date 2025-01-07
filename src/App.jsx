@@ -5,6 +5,7 @@ import GroupList from './components/GroupList';
 import AddGroup from './components/AddGroup'
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Group from './components/Group';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<GroupList />} />
         <Route path="/addgroup" element={<AddGroup />} />
+        <Route path="/group/:id" element={<Group />} />
       </Routes>
       <Footer />
     </div>

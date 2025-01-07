@@ -38,7 +38,7 @@ const Login = () => {
         <div className="register-section">
             <div className="register-form-container">
                 <div className="form-icon">
-                    <img src="images/isotype.png" alt="icon" />
+                    <img src="/images/isotype.png" alt="icon" />
                 </div>
                 <form onSubmit={handleLogin}>
                     <div className="form-group">

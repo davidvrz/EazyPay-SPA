@@ -39,7 +39,7 @@ const GroupList = () => {
     return (
         <div className="main">
             <div className="top-icon">
-                <img src="images/isotype.png" alt="Groups Icon" />
+                <img src="/images/isotype.png" alt="Groups Icon" />
             </div>
 
             <h1 className="main-title">Groups</h1>
@@ -49,9 +49,12 @@ const GroupList = () => {
                     <div className="group-card" key={group.id}>
                         <div className="group-info">
                             <h3>
-                                <a href={`index.php?controller=groups&action=view&id=${group.id}`}>
+                                {/* <a href={`index.php?controller=groups&action=view&id=${group.id}`}>
                                     {group.name}
-                                </a>
+                                </a> */}
+                                <Link to={`/group/${group.id}`}>
+                                    {group.name}
+                                </Link>
                             </h3>
                             <p>
                                 <strong>Admin:</strong> {group.admin}

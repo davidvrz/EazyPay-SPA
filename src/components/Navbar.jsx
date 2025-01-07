@@ -9,7 +9,7 @@ const Navbar = ({ changeView }) => {
 
     return (
         <nav className="navbar">
-            <img className="navbar-logo" src="images/logo.png" alt="logo" />
+            <img className="navbar-logo" src="/images/logo.png" alt="logo" />
                 <ul className="navbar-links">
                     <li><button onClick={handleLogout}>Logout</button></li>
                     <li>prueba</li>

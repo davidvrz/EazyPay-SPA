@@ -39,7 +39,7 @@ const Register = () => {
         <div className="register-section">
             <div className="register-form-container">
                 <div className="form-icon">
-                    <img src="images/isotype.png" alt="icon" />
+                    <img src="/images/isotype.png" alt="icon" />
                 </div>
                 <form onSubmit={handleRegister}>
                     <div className="form-group">
