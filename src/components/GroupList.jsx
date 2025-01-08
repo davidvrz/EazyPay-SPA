@@ -6,10 +6,9 @@ const GroupList = () => {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const currentUser = "currentuser"; // Sustituir con el usuario autenticado real
+    const currentUser = localStorage.getItem("username");
 
     useEffect(() => {
-        // Obtener grupos desde el endpoint
         const fetchGroups = async () => {
             try {
                 const response = await fetch("http://localhost:80/rest/group", {
