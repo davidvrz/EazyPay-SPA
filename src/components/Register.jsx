@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { api } from '../services/api';
 import '../styles/components/Auth.css';
 
 const Register = () => {
@@ -11,27 +12,14 @@ const Register = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-
+    
         const userData = { username, email, password };
-
+    
         try {
-            const response = await fetch('http://localhost:80/rest/user', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userData),
-            });
-
-            if (response.ok) {
-                const data = await response.text();
-                navigate('/'); // Navigate to login after successful registration
-            } else {
-                const data = await response.json();
-                setError(data.errors.join(', ')); // Show validation errors
-            }
+            await api.post('/user', userData);
+            navigate('/');
         } catch (err) {
-            setError('Registration failed');
+            setError(err.message || 'Registration failed');
         }
     };
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/components/Auth.css';
+import { api } from '../services/api'; // Servicio API
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -10,27 +11,20 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setError(''); // Resetea errores
 
         try {
-            const response = await fetch(`http://localhost:80/rest/user/${username}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Basic ' + btoa(username + ':' + password), // Basic Auth
-                },
-            });
-
-            if (response.ok) {
-                const data = await response.text();
-
-                // Save token and other info that API returns
-                localStorage.setItem('username', username);
-                localStorage.setItem('password', password);
-                navigate('/home'); // Navigate to Dashboard
-            } else {
-                throw new Error('Login failed');
-            }
+            const headers = {
+                Authorization: 'Basic ' + btoa(`${username}:${password}`),
+            };
+            await api.get(`/user/${username}`, headers); // Llama al servicio API
+            
+            // Guardar credenciales o token en localStorage
+            localStorage.setItem('username', username);
+            localStorage.setItem('authToken', btoa(`${username}:${password}`)); // Token básico
+            navigate('/home'); // Redirige al Dashboard
         } catch (err) {
-            setError('Invalid username or password');
+            setError('Invalid username or password'); // Manejo de errores
         }
     };
 
@@ -42,24 +36,26 @@ const Login = () => {
                 </div>
                 <form onSubmit={handleLogin}>
                     <div className="form-group">
-                        <label>Username</label>
+                        <label htmlFor="username">Username</label>
                         <input
+                            id="username"
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             required
                         />
-                        <span className="error-message">Provisional error</span>
+                        {error && !username && <span className="error-message">Username is required</span>}
                     </div>
                     <div className="form-group">
-                        <label>Password</label>
+                        <label htmlFor="password">Password</label>
                         <input
+                            id="password"
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        <span className="error-message">Provisional error</span>
+                        {error && !password && <span className="error-message">Password is required</span>}
                     </div>
                     {error && <p className="error-text">{error}</p>}
                     <button type="submit">Login</button>
