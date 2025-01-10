@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../styles/components/GroupCard.css";
 
 const GroupCard = ({ group, isAdmin, onDelete }) => {
@@ -11,7 +12,9 @@ const GroupCard = ({ group, isAdmin, onDelete }) => {
       <div className="group-actions">
         {isAdmin && (
           <>
-            <button className="edit-btn">Edit</button>
+            <Link to={`/editgroup/${group.id}`} className="edit-btn">
+              Edit
+            </Link>
             <button className="delete-btn" onClick={() => onDelete(group.id)}>
               Delete
             </button>

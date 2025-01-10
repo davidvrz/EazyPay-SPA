@@ -46,7 +46,7 @@ const AddGroup = () => {
     try {
       await api.post("/group", formData);
       alert("Group created successfully!");
-      navigate("/home"); // Redirige al listado de grupos después de crear el grupo
+      navigate("/home"); 
     } catch (err) {
       setErrors(err.response?.data || { general: "An error occurred." });
     }
