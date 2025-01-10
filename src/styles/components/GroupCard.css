@@ -46,7 +46,6 @@
     line-height: 1.5; /* Mejora la legibilidad */
 }
 
-
 .group-actions {
     display: flex;
     justify-content: flex-start;
@@ -66,9 +65,14 @@
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
+
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
+
+    flex-grow: 1;
+    max-width: 120px; 
 }
 
 .group-actions button:hover,
@@ -77,16 +81,17 @@
     color: #fff;
 }
 
-.group-actions  a.edit-btn::before {
+.group-actions a.edit-btn::before {
     content: "✏️";
+    font-size: 16px; /* Tamaño del icono */
 }
 
 .group-actions button.delete-btn::before {
     content: "🗑️";
+    font-size: 16px; /* Tamaño del icono */
 }
 
 .group-card-link {
     text-decoration: none;
     color: inherit;
-  }
-  
+}

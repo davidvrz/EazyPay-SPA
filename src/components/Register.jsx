@@ -29,7 +29,7 @@ const Register = () => {
                 <div className="form-icon">
                     <img src="/images/isotype.png" alt="icon" />
                 </div>
-                <form onSubmit={handleRegister}>
+                <form onSubmit={handleRegister} className="register-form">
                     <div className="form-group">
                         <label>Username</label>
                         <input
@@ -38,7 +38,7 @@ const Register = () => {
                             onChange={(e) => setUsername(e.target.value)}
                             required
                         />
-                        <span className="error-message">Provisional error</span>
+                        {error && <span className="error-message">Username is required</span>}
                     </div>
                     <div className="form-group">
                         <label>Email</label>
@@ -48,7 +48,7 @@ const Register = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
-                        <span className="error-message">Provisional error</span>
+                        {error && <span className="error-message">Email is required</span>}
                     </div>
                     <div className="form-group">
                         <label>Password</label>
@@ -58,15 +58,17 @@ const Register = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        <span className="error-message">Provisional error</span>
+                        {error && <span className="error-message">Password is required</span>}
                     </div>
                     {error && <p className="error-text">{error}</p>}
                     <button type="submit">Register</button>
                 </form>
-                <p>
-                    Already have an account?{' '}
-                    <button onClick={() => navigate('/')}>Login</button>
-                </p>
+                <div className="alternative-action">
+                    <p>
+                        Already have an account?{' '}
+                        <button onClick={() => navigate('/')}>Login</button>
+                    </p>
+                </div>
             </div>
         </div>
     );

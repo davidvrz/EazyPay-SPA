@@ -11,17 +11,15 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        setError(''); // Resetea errores
+        setError('');
 
         try {
-            await api.get(`/user/${username}`); // Llama al servicio API
-            
-            // Guardar credenciales o token en localStorage
             localStorage.setItem('username', username);
-            localStorage.setItem('authToken', btoa(`${username}:${password}`)); // Token básico
-            navigate('/home'); // Redirige al Dashboard
+            localStorage.setItem('authToken', btoa(`${username}:${password}`));
+            await api.get(`/user/${username}`);
+            navigate('/home'); 
         } catch (err) {
-            setError('Invalid username or password'); // Manejo de errores
+            setError('Invalid username or password');
         }
     };
 
@@ -31,7 +29,7 @@ const Login = () => {
                 <div className="form-icon">
                     <img src="/images/isotype.png" alt="icon" />
                 </div>
-                <form onSubmit={handleLogin}>
+                <form onSubmit={handleLogin} className="register-form">
                     <div className="form-group">
                         <label htmlFor="username">Username</label>
                         <input
@@ -57,10 +55,12 @@ const Login = () => {
                     {error && <p className="error-text">{error}</p>}
                     <button type="submit">Login</button>
                 </form>
-                <p>
-                    Don&apos;t have an account?{' '}
-                    <button onClick={() => navigate('/register')}>Register</button>
-                </p>
+                <div className="alternative-action">
+                    <p>
+                        Don&apos;t have an account?{' '}
+                        <button onClick={() => navigate('/register')}>Register</button>
+                    </p>
+                </div>
             </div>
         </div>
     );

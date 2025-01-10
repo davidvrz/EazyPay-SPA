@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import api from "../services/api"; // Usamos el api para manejar las solicitudes
 import '../styles/components/Group.css';
 
@@ -69,7 +69,7 @@ const Group = () => {
                             <div className="expense" key={expense.id}>
                                 <strong>{expense.description}</strong>
                                 <p>
-                                    {expense.payer.username} paid {expense.total_amount.toFixed(2)}
+                                    {expense.payer.username} paid {expense.total_amount}
                                 </p>
                                 <a href={`/expenses/${expense.id}`}>
                                     View Details
@@ -81,9 +81,9 @@ const Group = () => {
                     )}
 
                     <div className="add-expense">
-                        <a href={`/expenses/add?group_id=${group.id}`}>
+                        <Link to={`/group/${group.id}/addExpense`} className="add-expense-button">
                             Add Expense
-                        </a>
+                        </Link>
                     </div>
                 </div>
             )}
@@ -106,9 +106,9 @@ const Group = () => {
                     )}
 
                     <div className="suggested-movements">
-                        <a href={`/groups/movements?id=${group.id}`} className="suggested-movements-button">
+                        <Link to={`/group/${group.id}/movements`} className="suggested-movements-button">
                             View Suggested Movements
-                        </a>
+                        </Link>
                     </div>
                 </div>
             )}

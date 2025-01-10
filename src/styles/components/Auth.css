@@ -1,17 +1,18 @@
+/* Estilos generales para la página de login y registro */
 .register-section {
   height: 100vh;
   display: grid;
   place-items: center;
+  background-color: #f4f7fb;
 }
 
 .register-form-container {
   background-color: white;
-  padding: 20px;
+  padding: 30px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  width: 350px;
   text-align: center;
-  margin: 20px auto;
 }
 
 .form-icon {
@@ -19,8 +20,8 @@
 }
 
 .form-icon img {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
 }
 
 .register-form {
@@ -28,31 +29,46 @@
   flex-direction: column;
 }
 
+/* Estilo de los grupos de campos */
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   text-align: left;
 }
 
 .form-group label {
   display: block;
+  font-size: 1rem;
   margin-bottom: 5px;
+  color: #555;
 }
 
 .form-group input {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 1rem;
+}
+
+.form-group input:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
 .error-message {
-  color: red;
-  font-size: 12px;
+  color: #e74c3c;
+  font-size: 0.9rem;
   margin-top: 5px;
-  display: block;
 }
 
+.error-text {
+  color: #e74c3c;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+/* Estilos para el manejo de contraseñas (si es necesario) */
 .show-password {
   display: flex;
   align-items: center;
@@ -60,35 +76,40 @@
 }
 
 .show-password input {
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
-.form-actions {
-  display: flex;
-  justify-content: space-between;
-}
-
-.btn-back, .btn-register {
-  text-decoration: none;
-  padding: 10px 15px;
+/* Estilos de los botones */
+button {
+  background-color: #9EC7C4; /* Color principal de la aplicación */
+  color: white;
+  padding: 12px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  width: 48%;
+  font-size: 16px;
+  width: 100%;
+  transition: background-color 0.3s ease; /* Transición suave para el hover */
 }
 
-.btn-back {
-  background-color: #9EC7C4;
+button:hover {
+  background-color: #8bb5a1; /* Color más oscuro al pasar el ratón */
 }
 
-.btn-register {
-  background-color: #9EC7C4;
-}
-
-.btn-back:hover, .btn-register:hover {
-  opacity: 0.9;
-}
-
+/* Estilo de los enlaces de acción alternativa */
 .alternative-action {
   margin-top: 1.5rem;
+  font-size: 1rem;
+}
+
+.alternative-action button {
+  background-color: transparent;
+  color: #9EC7C4; /* Color de la aplicación */
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.alternative-action button:hover {
+  opacity: 0.8;
 }
