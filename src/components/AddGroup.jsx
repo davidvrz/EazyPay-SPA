@@ -116,8 +116,6 @@ const AddGroup = () => {
           Create Group
         </button>
         {errors.general && <div className="error-message">{errors.general}</div>}
-
-        {/*Añadir redirección a GroupList al realizar correctamente la creación*/}
       </form>
     </div>
   );

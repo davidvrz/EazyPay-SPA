@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import api from "../services/api"; // Usamos el api para manejar las solicitudes
 import '../styles/components/Group.css';
 
 const Group = () => {
@@ -11,17 +12,8 @@ const Group = () => {
     useEffect(() => {
         const fetchGroup = async () => {
             try {
-                const response = await fetch(`http://localhost:80/rest/group/${id}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Basic ' + btoa(localStorage.getItem("username") + ':' + localStorage.getItem("password")), // Basic Auth
-                    },
-                });
-                if (!response.ok) {
-                    throw new Error("Failed to fetch group data.");
-                }
-                const data = await response.json();
-                setGroup(data);
+                const response = await api.get(`/group/${id}`); // Usamos api para obtener los datos
+                setGroup(response.data);
             } catch (err) {
                 setError("Error loading group data.");
             } finally {
@@ -48,21 +40,19 @@ const Group = () => {
             </div>
 
             <h1 className="main-title">Group: {group.name}</h1>
-            <em>Created by {group.admin.username}</em>
+            <em>Created by {group.admin}</em>
             <p>{group.description}</p>
 
             {/* Pestañas para Expenses y Balances */}
             <div className="tab-container">
                 <button
                     className={`tab-button ${activeTab === "expenses" ? "active" : ""}`}
-                    data-tab="expenses"
                     onClick={() => showTab("expenses")}
                 >
                     Expenses
                 </button>
                 <button
                     className={`tab-button ${activeTab === "balances" ? "active" : ""}`}
-                    data-tab="balances"
                     onClick={() => showTab("balances")}
                 >
                     Balances
@@ -79,9 +69,9 @@ const Group = () => {
                             <div className="expense" key={expense.id}>
                                 <strong>{expense.description}</strong>
                                 <p>
-                                    {expense.payer.username} paid {expense.totalAmount.toFixed(2)}
+                                    {expense.payer.username} paid {expense.total_amount.toFixed(2)}
                                 </p>
-                                <a href={`index.php?controller=expenses&action=view&id=${expense.id}`}>
+                                <a href={`/expenses/${expense.id}`}>
                                     View Details
                                 </a>
                             </div>
@@ -91,7 +81,7 @@ const Group = () => {
                     )}
 
                     <div className="add-expense">
-                        <a href={`index.php?controller=expenses&action=add&group_id=${group.id}`}>
+                        <a href={`/expenses/add?group_id=${group.id}`}>
                             Add Expense
                         </a>
                     </div>
@@ -105,9 +95,9 @@ const Group = () => {
 
                     {group.members.length > 0 ? (
                         <ul>
-                            {group.members.map((member) => (
-                                <li key={member.member.username}>
-                                    {member.member.username}: {member.balance.toFixed(2)}
+                            {group.members.map((member, index) => (
+                                <li key={index}>
+                                    {member.username}: {parseFloat(member.balance).toFixed(2)}
                                 </li>
                             ))}
                         </ul>
@@ -116,10 +106,7 @@ const Group = () => {
                     )}
 
                     <div className="suggested-movements">
-                        <a
-                            href={`index.php?controller=groups&action=movements&id=${group.id}`}
-                            className="suggested-movements-button"
-                        >
+                        <a href={`/groups/movements?id=${group.id}`} className="suggested-movements-button">
                             View Suggested Movements
                         </a>
                     </div>

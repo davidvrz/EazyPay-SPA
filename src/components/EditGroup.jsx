@@ -58,8 +58,7 @@ const EditGroup = () => {
         setErrors(response.errors);
       } else {
         alert("Group updated successfully!");
-        //navigate(`/group/${id}`); 
-        navigate("/home");
+        navigate(`/group/${id}`); 
       }
     } catch (err) {
       setErrors({ general: "An error occurred while updating the group." });
