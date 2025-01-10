@@ -13,13 +13,8 @@ const GroupList = () => {
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const response = await api.get("/group", {
-          Authorization: `Basic ${btoa(
-            `${localStorage.getItem("username")}:${localStorage.getItem("password")}`
-          )}`,
-        });
+        const response = await api.get("/group");
         
-        // Asegurarnos de extraer los datos correctamente
         if (response.data && Array.isArray(response.data)) {
           setGroups(response.data);
         } else {
@@ -39,11 +34,7 @@ const GroupList = () => {
     if (!window.confirm("Are you sure you want to delete this group?")) return;
 
     try {
-      await api.delete(`/group/${groupId}`, {
-        Authorization: `Basic ${btoa(
-          `${localStorage.getItem("username")}:${localStorage.getItem("password")}`
-        )}`,
-      });
+      await api.delete(`/group/${groupId}`);
       setGroups((prevGroups) => prevGroups.filter((group) => group.id !== groupId));
     } catch (err) {
       alert("Error deleting group. Please try again later.");

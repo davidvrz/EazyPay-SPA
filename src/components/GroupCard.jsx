@@ -1,25 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "../styles/components/GroupCard.css";
 
 const GroupCard = ({ group, isAdmin, onDelete }) => {
   return (
     <div className="group-card">
       <div className="group-info">
-        <h3>
-          <Link to={`/group/${group.id}`}>{group.name}</Link>
-        </h3>
-        <p>
-          <strong>Admin:</strong> {group.admin}
-        </p>
-        <p>{group.description}</p>
+        <h3>{group.name}</h3>
+        {group.description && <p>{group.description}</p>}
       </div>
-      {isAdmin && (
-        <div className="group-actions">
-          <button onClick={() => onDelete(group.id)}>Delete</button>
-          <Link to={`/group/${group.id}/edit`}>Edit</Link>
-        </div>
-      )}
+      <div className="group-actions">
+        {isAdmin && (
+          <>
+            <button className="edit-btn">Edit</button>
+            <button className="delete-btn" onClick={() => onDelete(group.id)}>
+              Delete
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 };

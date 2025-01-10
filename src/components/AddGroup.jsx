@@ -1,62 +1,54 @@
 import React, { useState } from "react";
-import '../styles/components/AddGroup.css';
+import { useNavigate } from "react-router-dom";
+import api from "../services/api";
+import "../styles/components/AddGroup.css";
 
 const AddGroup = () => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [members, setMembers] = useState([localStorage.getItem("username")]);
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    members: [localStorage.getItem("username")],
+  });
   const [errors, setErrors] = useState({});
 
+  // Actualizar valores del formulario
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  // Añadir un nuevo miembro al grupo
   const handleAddMember = () => {
-    setMembers([...members, ""]);
+    setFormData({ ...formData, members: [...formData.members, ""] });
   };
 
+  // Cambiar el valor de un miembro específico
   const handleMemberChange = (index, value) => {
-    const updatedMembers = [...members];
+    const updatedMembers = [...formData.members];
     updatedMembers[index] = value;
-    setMembers(updatedMembers);
+    setFormData({ ...formData, members: updatedMembers });
   };
 
+  // Eliminar un miembro del grupo
   const handleRemoveMember = (index) => {
-    const updatedMembers = members.filter((_, i) => i !== index);
-    setMembers(updatedMembers);
+    setFormData({
+      ...formData,
+      members: formData.members.filter((_, i) => i !== index),
+    });
   };
 
+  // Enviar formulario para crear el grupo
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
-
-    const data = { name, description, members };
-
-    const username = localStorage.getItem("username");
-    const password = localStorage.getItem("password");
-
-    if (!username || !password) {
-      setErrors({ general: "User is not authenticated. Please log in." });
-      return;
-    }
-
     try {
-      const response = await fetch("http://localhost:80/rest/group", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Basic " + btoa(username + ":" + password),
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        setErrors(errorData);
-      } else {
-        alert("Group created successfully!");
-        setName("");
-        setDescription("");
-        setMembers(["currentuser"]);
-      }
+      await api.post("/group", formData);
+      alert("Group created successfully!");
+      navigate("/home"); // Redirige al listado de grupos después de crear el grupo
     } catch (err) {
-      setErrors({ general: "An error occurred while creating the group." });
+      setErrors(err.response?.data || { general: "An error occurred." });
     }
   };
 
@@ -65,7 +57,6 @@ const AddGroup = () => {
       <div className="top-icon">
         <img src="/images/isotype.png" alt="Groups Icon" />
       </div>
-
       <h1 className="main-title">Create Group</h1>
 
       <form onSubmit={handleSubmit} id="group-form">
@@ -74,11 +65,12 @@ const AddGroup = () => {
           <input
             type="text"
             name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={formData.name}
+            onChange={handleChange}
+            required
           />
         </label>
-        <div className="error-message">{errors.name}</div>
+        {errors.name && <div className="error-message">{errors.name}</div>}
 
         <label>
           Description:
@@ -86,19 +78,20 @@ const AddGroup = () => {
             name="description"
             rows="4"
             cols="50"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={formData.description}
+            onChange={handleChange}
           ></textarea>
         </label>
-        <div className="error-message">{errors.description}</div>
+        {errors.description && (
+          <div className="error-message">{errors.description}</div>
+        )}
 
         <div id="members-container">
           <label>Participants:</label>
-          {members.map((member, index) => (
+          {formData.members.map((member, index) => (
             <div className="member-input" key={index}>
               <input
                 type="text"
-                name="members[]"
                 value={member}
                 onChange={(e) => handleMemberChange(index, e.target.value)}
                 readOnly={index === 0}
@@ -118,7 +111,9 @@ const AddGroup = () => {
         <button type="button" id="add-participant" onClick={handleAddMember}>
           Add Participant
         </button>
-        <div className="error-message">{errors.members}</div>
+        {errors.members && (
+          <div className="error-message">{errors.members.join(", ")}</div>
+        )}
 
         <button type="submit">Create Group</button>
         {errors.general && <div className="error-message">{errors.general}</div>}

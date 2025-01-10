@@ -14,10 +14,7 @@ const Login = () => {
         setError(''); // Resetea errores
 
         try {
-            const headers = {
-                Authorization: 'Basic ' + btoa(`${username}:${password}`),
-            };
-            await api.get(`/user/${username}`, headers); // Llama al servicio API
+            await api.get(`/user/${username}`); // Llama al servicio API
             
             // Guardar credenciales o token en localStorage
             localStorage.setItem('username', username);

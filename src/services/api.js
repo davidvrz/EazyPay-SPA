@@ -1,6 +1,19 @@
 // services/api.js
 const BASE_URL = 'http://localhost:80/rest'; // Base URL configurable
 
+// Función para obtener las credenciales de autenticación
+const getAuthHeader = () => {
+  const username = localStorage.getItem("username");
+  const password = localStorage.getItem("password");
+
+  if (username && password) {
+    return {
+      Authorization: `Basic ${btoa(username + ":" + password)}`
+    };
+  }
+  return {};
+};
+
 const handleResponse = async (response) => {
   if (!response.ok) {
     const errorData = await response.json();
@@ -9,12 +22,14 @@ const handleResponse = async (response) => {
   return response.json();
 };
 
+// Función genérica para manejar las peticiones
 const request = async (endpoint, method = 'GET', body = null, headers = {}) => {
   const config = {
     method,
     headers: {
       'Content-Type': 'application/json',
-      ...headers,
+      ...getAuthHeader(),  // Incluir siempre la autenticación
+      ...headers,          // Permitir sobrescribir con headers adicionales
     },
   };
 
