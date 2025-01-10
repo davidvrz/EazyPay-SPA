@@ -97,10 +97,7 @@ const AddGroup = () => {
                 readOnly={index === 0}
               />
               {index > 0 && (
-                <button
-                  type="button"
-                  onClick={() => handleRemoveMember(index)}
-                >
+                <button type="button" className="remove-participant" onClick={() => handleRemoveMember(index)}>
                   Remove
                 </button>
               )}
@@ -115,8 +112,12 @@ const AddGroup = () => {
           <div className="error-message">{errors.members.join(", ")}</div>
         )}
 
-        <button type="submit">Create Group</button>
+        <button type="submit" id="create-group">
+          Create Group
+        </button>
         {errors.general && <div className="error-message">{errors.general}</div>}
+
+        {/*Añadir redirección a GroupList al realizar correctamente la creación*/}
       </form>
     </div>
   );
