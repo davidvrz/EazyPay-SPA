@@ -62,7 +62,7 @@ const GroupList = () => {
         ))}
       </div>
       {currentUser && (
-        <Link className="add-group-btn" to="/addgroup">
+        <Link to="/addgroup" className="add-group-btn">
           Create Group
         </Link>
       )}

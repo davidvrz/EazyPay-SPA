@@ -4,28 +4,26 @@ import "../styles/components/ExpenseCard.css";
 
 const ExpenseCard = ({ expense, group, onDelete }) => {
   return (
-    <Link to={`/group/${group.id}/expense/${expense.id}`} className="expense-info-btn">
+    <div className="expense-card-container">
       <div className="expense-card">
-        <div className="expense-info">
-          <h3>{expense.description}</h3>
-          <p>
-            {expense.payer} paid {expense.total_amount}
-          </p>
-        </div>
+        <Link to={`/group/${group.id}/expense/${expense.id}`} className="expense-info-btn">
+          <div className="expense-info">
+            <h3>{expense.description}</h3>
+            <p>
+              {expense.payer} paid {expense.total_amount}
+            </p>
+          </div>
+        </Link>
         <div className="expense-actions">
-          {(
-            <>
-              <Link to={`/editexpense/${group.id}/expense/${expense.id}`} className="edit-btn">
-                Edit
-              </Link>
-              <button className="delete-btn" onClick={() => onDelete(expense.id)}>
-                Delete
-              </button>
-            </>
-          )}
+          <Link to={`/group/${group.id}/editexpense/${expense.id}`} className="edit-btn">
+            Edit
+          </Link>
+          <button className="delete-btn" onClick={() => onDelete(expense.id)}>
+            Delete
+          </button>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

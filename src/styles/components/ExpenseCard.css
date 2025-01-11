@@ -1,96 +1,101 @@
+/* Estilos específicos para ExpenseCard */
+.expense-card-container {
+  width: 100%;
+}
+
 .expense-card {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--color-secondary-light);
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-secondary-light);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .expense-info-btn {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .expense-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 .expense-info {
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 .expense-info h3 {
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--color-primary);
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--color-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .expense-info h3::before {
-    content: "💸";
-    font-size: 20px;
+  content: "💸";
+  font-size: 20px;
 }
 
 .expense-card .expense-info p {
-    font-size: 14px;
-    color: var(--color-text-medium);
-    margin: 0;
-    padding: 0 10px;
-    text-align: left;
-    word-wrap: break-word; 
-    line-height: 1.5; /* Mejora la legibilidad */
+  font-size: 14px;
+  color: var(--color-text-medium);
+  margin: 0;
+  padding: 0 10px;
+  text-align: left;
+  word-wrap: break-word;
+  line-height: 1.5;
 }
 
 .expense-actions {
-    display: flex;
-    justify-content: flex-start;
-    gap: 15px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
 }
 
 .expense-actions button,
 .expense-actions a {
-    color: var(--color-secondary);
-    background-color: var(--color-secondary-light);
-    border: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+  color: var(--color-secondary);
+  background-color: var(--color-secondary-light);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 
-    flex-grow: 1;
-    max-width: 120px; 
+  flex-grow: 1;
+  max-width: 120px;
 }
 
 .expense-actions button:hover,
 .expense-actions a:hover {
-    background-color: var(--color-secondary);
-    color: #fff;
+  background-color: var(--color-secondary);
+  color: #fff;
 }
 
 .expense-actions a.edit-btn::before {
-    content: "✏️";
-    font-size: 16px; /* Tamaño del icono */
+  content: "✏️";
+  font-size: 16px;
 }
 
 .expense-actions button.delete-btn::before {
-    content: "🗑️";
-    font-size: 16px; /* Tamaño del icono */
+  content: "🗑️";
+  font-size: 16px;
 }

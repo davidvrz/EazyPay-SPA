@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import api from "../services/api"; // Usamos el api para manejar las solicitudes
+import api from "../services/api";
 import ExpenseCard from "./ExpenseCard";
 import '../styles/components/Group.css';
 
@@ -13,7 +13,7 @@ const Group = () => {
     useEffect(() => {
         const fetchGroup = async () => {
             try {
-                const response = await api.get(`/group/${id}`); // Usamos api para obtener los datos
+                const response = await api.get(`/group/${id}`); 
                 
                 setGroup(response.data);
                 
@@ -83,9 +83,6 @@ const Group = () => {
                             key={expense.id}
                             expense={expense}
                             group={group}
-                            description={expense.description}
-                            payer={expense.payer.username}
-                            total_amount={expense.total_amount}
                             onDelete={handleDelete}
                         />
                     ))}

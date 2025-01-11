@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import api from "../services/api"; // Asegúrate de que la ruta de la API sea correcta
-import '../styles/components/AddExpense.css';
+import api from "../services/api";
+import "../styles/components/AddExpense.css";
 
-const AddExpense = () => {
-  const { id } = useParams(); // Obtén el ID del grupo desde la URL
-  const navigate = useNavigate(); // Para redirigir después de agregar el gasto
+const EditExpense = () => {
+  const { id, expenseId } = useParams(); 
+  const navigate = useNavigate();
 
   const [description, setDescription] = useState("");
   const [totalAmount, setTotalAmount] = useState("");
@@ -13,7 +13,7 @@ const AddExpense = () => {
   const [members, setMembers] = useState([]);
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [participantAmounts, setParticipantAmounts] = useState({});
-  const [splitMethod, setSplitMethod] = useState("equitable");
+  const [splitMethod, setSplitMethod] = useState("manual");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -22,17 +22,31 @@ const AddExpense = () => {
       try {
         const response = await api.get(`/group/${id}`);
         setMembers(response.data.members);
-        setSelectedMembers(response.data.members.map(member => member.username)); // Todos seleccionados por defecto
-        setPayer(response.data.members[0].username);
-      } catch (err) {
-        setError("Failed to load group data.");
+      } catch {
+        setError("Failed to load group members.");
+      }
+    };
+
+    const fetchExpenseDetails = async () => {
+      try {
+        const response = await api.get(`/group/${id}/expense/${expenseId}`);
+        const expense = response.data;
+
+        setDescription(expense.description);
+        setTotalAmount(expense.totalAmount);
+        setPayer(expense.payer);
+        setParticipantAmounts(expense.participants);
+        setSelectedMembers(Object.keys(expense.participants));
+        setSplitMethod("manual");
+      } catch {
+        setError("Failed to load expense details.");
       }
     };
 
     fetchGroupMembers();
-  }, [id]);
+    fetchExpenseDetails();
+  }, [id, expenseId]);
 
-  // Calcular el monto de cada participante si se elige "Equitativo"
   useEffect(() => {
     if (splitMethod === "equitable" && totalAmount) {
       const numParticipants = selectedMembers.length;
@@ -46,7 +60,6 @@ const AddExpense = () => {
     }
   }, [splitMethod, selectedMembers, totalAmount]);
 
-  // Manejar la selección de miembros
   const handleMemberChange = (username) => {
     setSelectedMembers((prevSelected) =>
       prevSelected.includes(username)
@@ -55,10 +68,9 @@ const AddExpense = () => {
     );
   };
 
-  // Manejar el cambio en el monto de un participante (solo en el caso de "manual")
   const handleAmountChange = (username, value) => {
     if (splitMethod === "manual") {
-      const amount = Math.max(0, parseFloat(value) || 0); // Aseguramos que el monto no sea negativo
+      const amount = Math.max(0, parseFloat(value) || 0);
       setParticipantAmounts((prevAmounts) => ({
         ...prevAmounts,
         [username]: amount,
@@ -70,7 +82,6 @@ const AddExpense = () => {
     e.preventDefault();
     setLoading(true);
 
-    // Preparamos el objeto participants en el formato correcto
     const participantsData = {};
     selectedMembers.forEach((username) => {
       participantsData[username] = participantAmounts[username] || "0.00";
@@ -78,17 +89,17 @@ const AddExpense = () => {
 
     const expenseData = {
       description,
-      totalAmount: totalAmount.toFixed(2),
+      totalAmount: parseFloat(totalAmount).toFixed(2),
       payer,
-      participants: participantsData, 
+      participants: participantsData,
     };
 
     try {
-      await api.post(`/group/${id}/expense`, expenseData);
-      alert("Expense created successfully!");
+      await api.put(`/group/${id}/expense/${expenseId}`, expenseData);
+      alert("Expense updated successfully!");
       navigate(`/group/${id}`);
-    } catch (err) {
-      setError("Error creating the expense.");
+    } catch {
+      setError("Error updating the expense.");
     } finally {
       setLoading(false);
     }
@@ -96,7 +107,7 @@ const AddExpense = () => {
 
   return (
     <div className="main">
-      <h1>Add Expense to Group</h1>
+      <h1>Edit Expense</h1>
       {error && <p className="error">{error}</p>}
 
       <form id="expense-form" onSubmit={handleSubmit}>
@@ -184,12 +195,12 @@ const AddExpense = () => {
           ))}
         </div>
 
-        <button id="add-expense-button" type="submit" disabled={loading}>
-          {loading ? "Adding..." : "Add Expense"}
+        <button id="edit-expense-button" type="submit" disabled={loading}>
+          {loading ? "Updating..." : "Update Expense"}
         </button>
       </form>
     </div>
   );
 };
 
-export default AddExpense;
+export default EditExpense;
