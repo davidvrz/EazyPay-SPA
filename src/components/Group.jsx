@@ -32,6 +32,10 @@ const Group = () => {
     
         try {
           await api.delete(`/group/${groupId}/expense/${expenseId}`);
+          setGroup((prevGroup) => ({
+            ...prevGroup,
+            expenses: prevGroup.expenses.filter(expense => expense.id !== expenseId)
+          }));
         } catch (err) {
           console.error(err);
           alert("Error deleting expense. Please try again later.");
@@ -83,7 +87,7 @@ const Group = () => {
                             key={expense.id}
                             expense={expense}
                             group={group}
-                            onDelete={handleDelete}
+                            onDelete={() => handleDelete(group.id, expense.id)}
                         />
                     ))}
 
