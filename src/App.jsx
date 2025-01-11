@@ -10,6 +10,7 @@ import Group from './components/Group';
 import AddExpense from './components/AddExpense';
 import EditExpense from './components/EditExpense';
 import Expense from './components/Expense';
+import Movements from './components/Movements';
 
 
 function App() {
@@ -28,6 +29,9 @@ function App() {
         <Route path="/group/:id/addexpense" element={<AddExpense />} />
         <Route path="/group/:id/editexpense/:expenseId" element={<EditExpense />} />
         <Route path="/group/:id/expense/:expenseId" element={<Expense />} />
+
+        <Route path="/group/:groupId/movements" element={<Movements />} />
+
       </Routes>
       <Footer />
     </div>

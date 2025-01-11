@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../services/api";
-import "../styles/components/Expense.css"; // Asegúrate de importar el CSS
+import "../styles/components/Expense.css"; 
 
 const Expense = () => {
   const { id, expenseId } = useParams();
@@ -12,7 +12,7 @@ const Expense = () => {
     const fetchExpenseDetails = async () => {
       try {
         const response = await api.get(`/group/${id}/expense/${expenseId}`);
-        setExpense(response.data); // Suponiendo que los detalles vienen en la clave `data`
+        setExpense(response.data); 
       } catch (err) {
         setError("Failed to load expense details.");
       }
