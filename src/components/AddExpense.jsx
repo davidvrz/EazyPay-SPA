@@ -85,9 +85,8 @@ const AddExpense = () => {
 
     try {
       const response = await api.post(`/group/${id}/expense`, expenseData);
-      if (response.status === 201) {
-        navigate(`/group/${id}`); 
-      }
+      alert("Expense created successfully!");
+      navigate(`/group/${id}`);
     } catch (err) {
       setError("Error creating the expense.");
     } finally {
