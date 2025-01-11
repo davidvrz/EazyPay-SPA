@@ -13,15 +13,14 @@ const Navbar = ({ changeView }) => {
     return (
         <nav className="navbar">
             {currentUser && (
-                <Link className="return-home" to="/home">
+                <Link className="navbar-return-home" to="/home">
                     <img className="navbar-logo" src="/images/logo.png" alt="logo" />
                 </Link>
             )}
 
                 <ul className="navbar-links">
                     <li><button onClick={handleLogout}>Logout</button></li>
-                    <li>prueba</li>
-                    <li>prueba</li>
+                    <li><button>Profile of {currentUser}</button></li>
                 </ul>
                 <div className="navbar-toggle">
                     <span></span>
