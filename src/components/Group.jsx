@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import api from "../services/api"; // Usamos el api para manejar las solicitudes
+import ExpenseCard from "./ExpenseCard";
 import '../styles/components/Group.css';
 
 const Group = () => {
@@ -13,7 +14,9 @@ const Group = () => {
         const fetchGroup = async () => {
             try {
                 const response = await api.get(`/group/${id}`); // Usamos api para obtener los datos
+                
                 setGroup(response.data);
+                
             } catch (err) {
                 setError("Error loading group data.");
             } finally {
@@ -23,6 +26,17 @@ const Group = () => {
 
         fetchGroup();
     }, [id]);
+
+    const handleDelete = async (groupId, expenseId) => {
+        if (!window.confirm("Are you sure you want to delete this expense?")) return;
+    
+        try {
+          await api.delete(`/group/${groupId}/expense/${expenseId}`);
+        } catch (err) {
+          console.error(err);
+          alert("Error deleting expense. Please try again later.");
+        }
+      };
 
     const [activeTab, setActiveTab] = useState("expenses");
 
@@ -63,22 +77,18 @@ const Group = () => {
             {activeTab === "expenses" && (
                 <div id="expenses" className="tab-content active">
                     <h2 className="tab-content-title">Expenses</h2>
-
-                    {group.expenses.length > 0 ? (
-                        group.expenses.map((expense) => (
-                            <div className="expense" key={expense.id}>
-                                <strong>{expense.description}</strong>
-                                <p>
-                                    {expense.payer.username} paid {expense.total_amount}
-                                </p>
-                                <a href={`/expenses/${expense.id}`}>
-                                    View Details
-                                </a>
-                            </div>
-                        ))
-                    ) : (
-                        <p>No expenses recorded for this group.</p>
-                    )}
+                    
+                    {Array.isArray(group.expenses) && group.expenses.map((expense) => (
+                        <ExpenseCard
+                            key={expense.id}
+                            expense={expense}
+                            group={group}
+                            description={expense.description}
+                            payer={expense.payer.username}
+                            total_amount={expense.total_amount}
+                            onDelete={handleDelete}
+                        />
+                    ))}
 
                     <div className="add-expense">
                         <Link to={`/group/${group.id}/addExpense`} className="add-expense-button">
