@@ -15,7 +15,7 @@ const Login = () => {
 
         try {
             localStorage.setItem('username', username);
-            localStorage.setItem('authToken', btoa(`${username}:${password}`));
+            localStorage.setItem('password', password);
             await api.get(`/user/${username}`);
             navigate('/home'); 
         } catch (err) {

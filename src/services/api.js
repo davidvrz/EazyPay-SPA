@@ -28,8 +28,8 @@ const request = async (endpoint, method = 'GET', body = null, headers = {}) => {
     method,
     headers: {
       'Content-Type': 'application/json',
-      ...getAuthHeader(),  // Incluir siempre la autenticación
-      ...headers,          // Permitir sobrescribir con headers adicionales
+      ...getAuthHeader(), 
+      ...headers,         
     },
   };
 
