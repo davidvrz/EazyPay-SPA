@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import '../styles/components/Navbar.css'
+import '../../styles/components/Navbar.css'
 
 const Navbar = ({ changeView }) => {
     const [currentUser, setCurrentUser] = useState(localStorage.getItem("username"));

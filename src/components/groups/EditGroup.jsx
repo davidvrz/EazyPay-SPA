@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import api from "../services/api"; 
-import "../styles/components/AddGroup.css";
+import api from "../../services/api"; 
+import "../../styles/components/AddGroup.css";
 import { useTranslation } from "react-i18next";
 
 const EditGroup = () => {

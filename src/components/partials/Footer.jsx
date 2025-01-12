@@ -1,7 +1,7 @@
 import React, { useState, useTransition } from 'react';
-import '../styles/components/Footer.css'
+import '../../styles/components/Footer.css'
 import { useTranslation } from 'react-i18next';
-import i18n from '../i18n/i18n';
+import i18n from '../../i18n/i18n';
 
 const Footer = ({ changeView }) => {
     const{t} = useTranslation();

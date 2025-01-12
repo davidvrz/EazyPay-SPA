@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../styles/components/GroupCard.css";
+import "../../styles/components/GroupCard.css";
 import { useTranslation } from "react-i18next";
 
 const GroupCard = ({ group, isAdmin, onDelete }) => {

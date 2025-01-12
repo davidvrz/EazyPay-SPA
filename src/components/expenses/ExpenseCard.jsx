@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../styles/components/ExpenseCard.css";
+import "../../styles/components/ExpenseCard.css";
 import { useTranslation } from "react-i18next";
 
 const ExpenseCard = ({ expense, group, onDelete }) => {

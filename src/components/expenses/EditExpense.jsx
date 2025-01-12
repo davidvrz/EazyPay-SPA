@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import api from "../services/api"; // Asegúrate de que la ruta de la API sea correcta
-import '../styles/components/AddExpense.css';
+import api from "../../services/api";
+import "../../styles/components/AddExpense.css";
 import { useTranslation } from "react-i18next";
 
-const AddExpense = () => {
-  const { id } = useParams(); // Obtén el ID del grupo desde la URL
-  const navigate = useNavigate(); // Para redirigir después de agregar el gasto
+const EditExpense = () => {
+  const { id, expenseId } = useParams(); 
+  const navigate = useNavigate();
   const {t} = useTranslation();
 
   const [description, setDescription] = useState("");
@@ -15,7 +15,7 @@ const AddExpense = () => {
   const [members, setMembers] = useState([]);
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [participantAmounts, setParticipantAmounts] = useState({});
-  const [splitMethod, setSplitMethod] = useState("equitable");
+  const [splitMethod, setSplitMethod] = useState("manual");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -24,17 +24,31 @@ const AddExpense = () => {
       try {
         const response = await api.get(`/group/${id}`);
         setMembers(response.data.members);
-        setSelectedMembers(response.data.members.map(member => member.username)); // Todos seleccionados por defecto
-        setPayer(response.data.members[0].username);
-      } catch (err) {
+      } catch {
         setError(t('error-load-group'));
       }
     };
 
-    fetchGroupMembers();
-  }, [id]);
+    const fetchExpenseDetails = async () => {
+      try {
+        const response = await api.get(`/group/${id}/expense/${expenseId}`);
+        const expense = response.data;
 
-  // Calcular el monto de cada participante si se elige "Equitativo"
+        setDescription(expense.description);
+        setTotalAmount(expense.totalAmount);
+        setPayer(expense.payer);
+        setParticipantAmounts(expense.participants);
+        setSelectedMembers(Object.keys(expense.participants));
+        setSplitMethod("manual");
+      } catch {
+        setError(t('error-load-expense'));
+      }
+    };
+
+    fetchGroupMembers();
+    fetchExpenseDetails();
+  }, [id, expenseId]);
+
   useEffect(() => {
     if (splitMethod === "equitable" && totalAmount) {
       const numParticipants = selectedMembers.length;
@@ -48,7 +62,6 @@ const AddExpense = () => {
     }
   }, [splitMethod, selectedMembers, totalAmount]);
 
-  // Manejar la selección de miembros
   const handleMemberChange = (username) => {
     setSelectedMembers((prevSelected) =>
       prevSelected.includes(username)
@@ -57,10 +70,9 @@ const AddExpense = () => {
     );
   };
 
-  // Manejar el cambio en el monto de un participante (solo en el caso de "manual")
   const handleAmountChange = (username, value) => {
     if (splitMethod === "manual") {
-      const amount = Math.max(0, parseFloat(value) || 0); // Aseguramos que el monto no sea negativo
+      const amount = Math.max(0, parseFloat(value) || 0);
       setParticipantAmounts((prevAmounts) => ({
         ...prevAmounts,
         [username]: amount,
@@ -72,25 +84,24 @@ const AddExpense = () => {
     e.preventDefault();
     setLoading(true);
 
-    // Preparamos el objeto participants en el formato correcto
     const participantsData = {};
     selectedMembers.forEach((username) => {
-      participantsData[username] = participantAmounts[username] || "0.00"; // Aseguramos que todos los participantes tengan un monto
+      participantsData[username] = participantAmounts[username] || "0.00";
     });
 
     const expenseData = {
       description,
-      totalAmount: totalAmount.toFixed(2), // Asegúrate de que el totalAmount esté en formato string con dos decimales
+      totalAmount: parseFloat(totalAmount).toFixed(2),
       payer,
-      participants: participantsData, // Aquí enviamos los participantes en el formato correcto
+      participants: participantsData,
     };
 
     try {
-      const response = await api.post(`/group/${id}/expense`, expenseData);
-      alert(t('msg-create-expense'));
+      await api.put(`/group/${id}/expense/${expenseId}`, expenseData);
+      alert(t('msg-update-expense'));
       navigate(`/group/${id}`);
-    } catch (err) {
-      setError(t('error-create-expense'));
+    } catch {
+      setError(t('error-update-expense'));
     } finally {
       setLoading(false);
     }
@@ -98,7 +109,7 @@ const AddExpense = () => {
 
   return (
     <div className="main">
-      <h1>{t('form-add-expense-group')}</h1>
+      <h1>{t('form-edit-expense')}</h1>
       {error && <p className="error">{error}</p>}
 
       <form id="expense-form" onSubmit={handleSubmit}>
@@ -186,12 +197,12 @@ const AddExpense = () => {
           ))}
         </div>
 
-        <button id="add-expense-button" type="submit" disabled={loading}>
-          {loading ? t('adding') : t('form-add-expense')}
+        <button id="edit-expense-button" type="submit" disabled={loading}>
+          {loading ? t('updating...') : t('form-update-expense')}
         </button>
       </form>
     </div>
   );
 };
 
-export default AddExpense;
+export default EditExpense;

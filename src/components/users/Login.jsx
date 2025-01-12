@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { api } from '../services/api';
-import '../styles/components/Auth.css';
+import '../../styles/components/Auth.css';
+import { api } from '../../services/api'; // Servicio API
 import { useTranslation } from 'react-i18next';
 
-const Register = () => {
+const Login = () => {
     const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate();
     const {t} = useTranslation();
+    const navigate = useNavigate();
 
-    const handleRegister = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-    
-        const userData = { username, email, password };
-    
+        setError('');
+
         try {
-            await api.post('/user', userData);
-            navigate('/');
+            localStorage.setItem('username', username);
+            localStorage.setItem('password', password);
+            await api.get(`/user/${username}`);
+            navigate('/home'); 
         } catch (err) {
-            setError(err.message || t('error-registration'));
+            setError(t('invalid-authentication'));
         }
     };
 
@@ -31,44 +31,36 @@ const Register = () => {
                 <div className="form-icon">
                     <img src="/images/isotype.png" alt="icon" />
                 </div>
-                <form onSubmit={handleRegister} className="register-form">
+                <form onSubmit={handleLogin} className="register-form">
                     <div className="form-group">
-                        <label>{t('form-username')}</label>
+                        <label htmlFor="username">{t('form-username')}</label>
                         <input
+                            id="username"
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             required
                         />
-                        {error && <span className="error-message">{t('error-login-username')}</span>}
+                        {error && !username && <span className="error-message">{t('error-login-username')}</span>}
                     </div>
                     <div className="form-group">
-                        <label>{t('form-email')}</label>
+                        <label htmlFor="password">{t('form-password')}</label>
                         <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                        {error && <span className="error-message">{t('error-login-email')}</span>}
-                    </div>
-                    <div className="form-group">
-                        <label>{t('form-password')}</label>
-                        <input
+                            id="password"
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        {error && <span className="error-message">{t('error-login-password')}</span>}
+                        {error && !password && <span className="error-message">{t('error-login-password')}</span>}
                     </div>
                     {error && <p className="error-text">{error}</p>}
-                    <button type="submit">{t('register-button')}</button>
+                    <button type="submit">{t('login-button')}</button>
                 </form>
                 <div className="alternative-action">
                     <p>
-                        {t('msg-for-login')}
-                        <button onClick={() => navigate('/')}>{t('login-button')}</button>
+                        {t('msg-for-register')} {' '}
+                        <button onClick={() => navigate('/register')}>{t('register-button')}</button>
                     </p>
                 </div>
             </div>
@@ -76,4 +68,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default Login;

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import api from "../services/api";
-import ExpenseCard from "./ExpenseCard";
-import '../styles/components/Group.css';
+import api from "../../services/api";
+import ExpenseCard from "./../expenses/ExpenseCard";
+import '../../styles/components/Group.css';
 import { useTranslation } from "react-i18next";
 
 const Group = () => {

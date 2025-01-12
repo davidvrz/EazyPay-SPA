@@ -1,16 +1,16 @@
 import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Login from './components/Login';
-import Register from './components/Register';
-import GroupList from './components/GroupList';
-import AddGroup from './components/AddGroup'
-import EditGroup from './components/EditGroup'
-import Group from './components/Group';
-import AddExpense from './components/AddExpense';
-import EditExpense from './components/EditExpense';
-import Expense from './components/Expense';
-import Movements from './components/Movements';
+import Navbar from './components/partials/Navbar';
+import Footer from './components/partials/Footer';
+import Login from './components/users/Login';
+import Register from './components/users/Register';
+import GroupList from './components/groups/GroupList';
+import AddGroup from './components/groups/AddGroup'
+import EditGroup from './components/groups/EditGroup'
+import Group from './components/groups/Group';
+import AddExpense from './components/expenses/AddExpense';
+import EditExpense from './components/expenses/EditExpense';
+import Expense from './components/expenses/Expense';
+import Movements from './components/groups/Movements';
 
 
 function App() {
