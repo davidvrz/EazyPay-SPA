@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import ExpenseCard from "./../expenses/ExpenseCard";
 import '../../styles/components/Group.css';
@@ -10,6 +10,7 @@ const Group = () => {
     const [group, setGroup] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const navigate = useNavigate();
     const {t} = useTranslation();
 
     useEffect(() => {
@@ -125,6 +126,10 @@ const Group = () => {
                     </div>
                 </div>
             )}
+
+            <div class="back-button">
+                <button onClick={() => navigate(`/home`)}>{t('back-button')}</button>
+            </div>
         </div>
     );
 };

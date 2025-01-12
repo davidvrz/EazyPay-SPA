@@ -6,6 +6,7 @@
     "delete-button":"Eliminar",
     "remove-button":"Eliminar",
     "movements-button":"Ver movimientos sugeridos",
+    "back-button":"Volver atrás",
     
 
     "FORMS":"",
@@ -32,7 +33,7 @@
     "form-balances":"Saldos",
     "form-members-balances":"Saldos de miembros",
 
-    "form-suggested-movements":"Movimientos sugeridos",
+    "form-suggested-movements":"Movimientos sugeridos para",
 
     "msg-for-register":"¿Todavía no tienes cuenta?",
     "msg-for-login":"¿Ya tienes cuenta?",
@@ -114,6 +115,5 @@
 
     "LANGUAGES":"",
     "english":"Inglés",
-    "spanish":"Español",
-    "galician":"Gallego"
+    "spanish":"Español"
 }

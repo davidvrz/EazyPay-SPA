@@ -63,7 +63,7 @@ const EditGroup = () => {
         navigate(`/group/${id}`); 
       }
     } catch (err) {
-      setErrors({ general: t('error-update-group')});
+      setErrors(err.errors);
     }
   };
 
@@ -131,6 +131,10 @@ const EditGroup = () => {
         <button type="submit">{t('form-update-group')}</button>
         {errors.general && <div className="error-message">{errors.general}</div>}
       </form>
+
+      <div class="back-button">
+        <button onClick={() => navigate(`/home`)}>{t('back-button')}</button>
+      </div>
     </div>
   );
 };
