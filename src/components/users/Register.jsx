@@ -16,12 +16,12 @@ const Register = () => {
         e.preventDefault();
     
         const userData = { username, email, password };
-    
+        
         try {
             await api.post('/user', userData);
             navigate('/');
         } catch (err) {
-            setError(err.message || t('error-registration'));
+            setError(err.errors);
         }
     };
 

@@ -50,7 +50,8 @@ const AddGroup = () => {
       alert(t('msg-create-group'));
       navigate("/home"); 
     } catch (err) {
-      setErrors(err.response?.data || { general: t('error-create-group') });
+      setErrors(err.errors);
+      
     }
   };
 
@@ -111,8 +112,9 @@ const AddGroup = () => {
           {t('form-add-participants')}
         </button>
         {errors.members && (
-          <div className="error-message">{errors.members.join(", ")}</div>
+          <div className="error-message">{Array.isArray(errors.members) ? errors.members.join(", ") : errors.members}</div>
         )}
+
 
         <button type="submit" id="create-group">
           {t('form-create-group')}
