@@ -25,6 +25,10 @@
     margin-bottom: 10px;
 }
 
+.footer-language-btn {
+    background-color: var(--color-primary);
+}
+
 .footer-section p,
 .footer-section ul,
 .footer-section li {
