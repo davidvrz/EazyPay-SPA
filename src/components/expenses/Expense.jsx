@@ -32,14 +32,18 @@ const Expense = () => {
   }
 
   return (
-    <div className="expense-main">
-      <h1 className="expense-title">{t('form-expense-details')}</h1>
+    <div className="main">
+      <div className="top-icon">
+        <img src="/images/isotype.png" alt="Groups Icon" />
+      </div>
 
-      <div className="expense-card">
-        <div className="expense-card-header">
-          <h2>{expense.description}</h2>
-        </div>
+      <h1 className="main-title">{t('form-expense-details')}</h1>
+
+      <div className="expense-container">
         <div className="expense-card-body">
+          <p>
+            <strong>{t('form-expense-description')}:</strong> {expense.description}
+          </p>
           <p>
             <strong>{t('form-expense-total-amount')}:</strong> {expense.totalAmount} €
           </p>
@@ -47,11 +51,9 @@ const Expense = () => {
             <strong>{t('form-expense-payer')}:</strong> {expense.payer}
           </p>
         </div>
-      </div>
 
-      <div className="expense-card">
         <div className="expense-card-header">
-          <h2>{t('form-expense-participants')}</h2>
+          <h3>{t('form-expense-participants')}</h3>
         </div>
         <div className="expense-card-body">
           <ul className="expense-participant-list">
@@ -63,6 +65,7 @@ const Expense = () => {
           </ul>
         </div>
       </div>
+
     </div>
   );
 };
