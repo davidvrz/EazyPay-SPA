@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/components/ExpenseCard.css";
+import { useTranslation } from "react-i18next";
 
 const ExpenseCard = ({ expense, group, onDelete }) => {
+  const {t} = useTranslation();
+
   return (
     <div className="expense-card-container">
       <div className="expense-card">
@@ -10,16 +13,16 @@ const ExpenseCard = ({ expense, group, onDelete }) => {
           <div className="expense-info">
             <h3>{expense.description}</h3>
             <p>
-              {expense.payer} paid {expense.total_amount}
+              {expense.payer} {t('expense_payment')} {expense.total_amount}
             </p>
           </div>
         </Link>
         <div className="expense-actions">
           <Link to={`/group/${group.id}/editexpense/${expense.id}`} className="edit-btn">
-            Edit
+            {t('edit-button')}
           </Link>
           <button className="delete-btn" onClick={() => onDelete(expense.id)}>
-            Delete
+            {t('delete-button')}
           </button>
         </div>
       </div>

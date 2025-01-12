@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../services/api"; 
 import "../styles/components/AddGroup.css";
+import { useTranslation } from "react-i18next";
 
 const EditGroup = () => {
   const { id } = useParams(); // Obtén el ID del grupo desde la URL
   const navigate = useNavigate(); // Para redirigir después de la actualización
+  const {t} = useTranslation();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -23,7 +25,7 @@ const EditGroup = () => {
         // Mapear solo los usernames de los miembros
         setMembers(response.data.members.map((member) => member.username));
       } catch (err) {
-        setErrors({ general: "Failed to load group data." });
+        setErrors({ general: t('error-load-group') });
       }
     };
 
@@ -57,11 +59,11 @@ const EditGroup = () => {
       if (response.errors) {
         setErrors(response.errors);
       } else {
-        alert("Group updated successfully!");
+        alert(t('msg-update-group'));
         navigate(`/group/${id}`); 
       }
     } catch (err) {
-      setErrors({ general: "An error occurred while updating the group." });
+      setErrors({ general: t('error-update-group')});
     }
   };
 
@@ -71,11 +73,11 @@ const EditGroup = () => {
         <img src="/images/isotype.png" alt="Groups Icon" />
       </div>
 
-      <h1 className="main-title">Edit Group</h1>
+      <h1 className="main-title">{t('form-edit-group')}</h1>
 
       <form onSubmit={handleSubmit} id="group-form">
         <label>
-          Name:
+          {t('form-group-name')}
           <input
             type="text"
             name="name"
@@ -86,7 +88,7 @@ const EditGroup = () => {
         <div className="error-message">{errors.name}</div>
 
         <label>
-          Description:
+          {t('form-group-description')}
           <textarea
             name="description"
             rows="4"
@@ -98,7 +100,7 @@ const EditGroup = () => {
         <div className="error-message">{errors.description}</div>
 
         <div id="members-container">
-          <label>Participants:</label>
+          <label>{t('form-group-participants')}</label>
           {members.map((member, index) => (
             <div className="member-input" key={index}>
               <input
@@ -114,7 +116,7 @@ const EditGroup = () => {
                   className="remove-participant"
                   onClick={() => handleRemoveMember(index)}
                 >
-                  Remove
+                  {t('delete-button')}
                 </button>
               )}
             </div>
@@ -122,11 +124,11 @@ const EditGroup = () => {
         </div>
 
         <button type="button" id="add-participant" onClick={handleAddMember}>
-          Add Participant
+          {t('form-add-participants')}
         </button>
         <div className="error-message">{errors.members}</div>
 
-        <button type="submit">Update Group</button>
+        <button type="submit">{t('form-update-group')}</button>
         {errors.general && <div className="error-message">{errors.general}</div>}
       </form>
     </div>

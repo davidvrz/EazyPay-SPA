@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import { api } from "../services/api";
 import GroupCard from "./GroupCard"; 
 import "../styles/components/GroupList.css";
+import { useTranslation } from "react-i18next";
 
 const GroupList = () => {
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const currentUser = localStorage.getItem("username");
+  const {t} = useTranslation();
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -18,10 +20,10 @@ const GroupList = () => {
         if (response.data && Array.isArray(response.data)) {
           setGroups(response.data);
         } else {
-          throw new Error("Unexpected response structure");
+          throw new Error(t('error-unexpected-structure'));
         }
       } catch (err) {
-        setError("Error fetching groups. Please try again later.");
+        setError(t('error-fetching-groups'));
       } finally {
         setLoading(false);
       }
@@ -31,18 +33,18 @@ const GroupList = () => {
   }, []);
 
   const handleDelete = async (groupId) => {
-    if (!window.confirm("Are you sure you want to delete this group?")) return;
+    if (!window.confirm(t('msg-delete-group'))) return;
 
     try {
       await api.delete(`/group/${groupId}`);
       setGroups((prevGroups) => prevGroups.filter((group) => group.id !== groupId));
     } catch (err) {
       console.error(err);
-      alert("Error deleting group. Please try again later.");
+      alert(t('error-delete-group'));
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>{t('loading')}</p>;
   if (error) return <p>{error}</p>;
 
   return (
@@ -50,7 +52,7 @@ const GroupList = () => {
       <div className="top-icon">
         <img src="/images/isotype.png" alt="Groups Icon" />
       </div>
-      <h1 className="main-title">Groups</h1>
+      <h1 className="main-title">{t('form-groups')}</h1>
       <div className="groups-list">
         {Array.isArray(groups) && groups.map((group) => (
           <GroupCard
@@ -63,7 +65,7 @@ const GroupList = () => {
       </div>
       {currentUser && (
         <Link to="/addgroup" className="add-group-btn">
-          Create Group
+          {t('form-create-group')}
         </Link>
       )}
     </div>

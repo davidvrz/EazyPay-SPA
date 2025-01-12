@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../services/api";
-import "../styles/components/Expense.css"; 
+import "../styles/components/Expense.css";
+import { useTranslation } from "react-i18next";
 
 const Expense = () => {
   const { id, expenseId } = useParams();
   const [expense, setExpense] = useState(null);
   const [error, setError] = useState("");
+  const {t} = useTranslation();
 
   useEffect(() => {
     const fetchExpenseDetails = async () => {
@@ -14,7 +16,7 @@ const Expense = () => {
         const response = await api.get(`/group/${id}/expense/${expenseId}`);
         setExpense(response.data); 
       } catch (err) {
-        setError("Failed to load expense details.");
+        setError(t('error-load-expense'));
       }
     };
 
@@ -26,12 +28,12 @@ const Expense = () => {
   }
 
   if (!expense) {
-    return <div className="loading-message">Loading expense details...</div>;
+    return <div className="loading-message">{t('loading')}</div>;
   }
 
   return (
     <div className="expense-main">
-      <h1 className="expense-title">Expense Details</h1>
+      <h1 className="expense-title">{t('form-expense-details')}</h1>
 
       <div className="expense-card">
         <div className="expense-card-header">
@@ -39,17 +41,17 @@ const Expense = () => {
         </div>
         <div className="expense-card-body">
           <p>
-            <strong>Total Amount:</strong> {expense.totalAmount} €
+            <strong>{t('form-expense-total-amount')}:</strong> {expense.totalAmount} €
           </p>
           <p>
-            <strong>Payer:</strong> {expense.payer}
+            <strong>{t('form-expense-payer')}:</strong> {expense.payer}
           </p>
         </div>
       </div>
 
       <div className="expense-card">
         <div className="expense-card-header">
-          <h2>Participants</h2>
+          <h2>{t('form-expense-participants')}</h2>
         </div>
         <div className="expense-card-body">
           <ul className="expense-participant-list">

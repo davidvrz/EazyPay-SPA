@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import "../styles/components/AddGroup.css";
+import { useTranslation } from "react-i18next";
 
 const AddGroup = () => {
   const navigate = useNavigate();
+  const {t} = useTranslation();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -45,10 +47,10 @@ const AddGroup = () => {
     setErrors({});
     try {
       await api.post("/group", formData);
-      alert("Group created successfully!");
+      alert(t('msg-create-group'));
       navigate("/home"); 
     } catch (err) {
-      setErrors(err.response?.data || { general: "An error occurred." });
+      setErrors(err.response?.data || { general: t('error-create-group') });
     }
   };
 
@@ -57,11 +59,11 @@ const AddGroup = () => {
       <div className="top-icon">
         <img src="/images/isotype.png" alt="Groups Icon" />
       </div>
-      <h1 className="main-title">Create Group</h1>
+      <h1 className="main-title">{t('form-create-group')}</h1>
 
       <form onSubmit={handleSubmit} id="group-form">
         <label>
-          Name:
+          {t('form-group-name')}
           <input
             type="text"
             name="name"
@@ -73,7 +75,7 @@ const AddGroup = () => {
         {errors.name && <div className="error-message">{errors.name}</div>}
 
         <label>
-          Description:
+          {t('form-group-description')}
           <textarea
             name="description"
             rows="4"
@@ -87,7 +89,7 @@ const AddGroup = () => {
         )}
 
         <div id="members-container">
-          <label>Participants:</label>
+          <label>{t('form-group-participants')}</label>
           {formData.members.map((member, index) => (
             <div className="member-input" key={index}>
               <input
@@ -98,7 +100,7 @@ const AddGroup = () => {
               />
               {index > 0 && (
                 <button type="button" className="remove-participant" onClick={() => handleRemoveMember(index)}>
-                  Remove
+                  {t('remove-button')}
                 </button>
               )}
             </div>
@@ -106,14 +108,14 @@ const AddGroup = () => {
         </div>
 
         <button type="button" id="add-participant" onClick={handleAddMember}>
-          Add Participant
+          {t('form-add-participants')}
         </button>
         {errors.members && (
           <div className="error-message">{errors.members.join(", ")}</div>
         )}
 
         <button type="submit" id="create-group">
-          Create Group
+          {t('form-create-group')}
         </button>
         {errors.general && <div className="error-message">{errors.general}</div>}
       </form>

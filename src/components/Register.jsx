@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api';
 import '../styles/components/Auth.css';
+import { useTranslation } from 'react-i18next';
 
 const Register = () => {
     const [username, setUsername] = useState('');
@@ -9,6 +10,7 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const {t} = useTranslation();
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -19,7 +21,7 @@ const Register = () => {
             await api.post('/user', userData);
             navigate('/');
         } catch (err) {
-            setError(err.message || 'Registration failed');
+            setError(err.message || t('error-registration'));
         }
     };
 
@@ -31,42 +33,42 @@ const Register = () => {
                 </div>
                 <form onSubmit={handleRegister} className="register-form">
                     <div className="form-group">
-                        <label>Username</label>
+                        <label>{t('form-username')}</label>
                         <input
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             required
                         />
-                        {error && <span className="error-message">Username is required</span>}
+                        {error && <span className="error-message">{t('error-login-username')}</span>}
                     </div>
                     <div className="form-group">
-                        <label>Email</label>
+                        <label>{t('form-email')}</label>
                         <input
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
-                        {error && <span className="error-message">Email is required</span>}
+                        {error && <span className="error-message">{t('error-login-email')}</span>}
                     </div>
                     <div className="form-group">
-                        <label>Password</label>
+                        <label>{t('form-password')}</label>
                         <input
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        {error && <span className="error-message">Password is required</span>}
+                        {error && <span className="error-message">{t('error-login-password')}</span>}
                     </div>
                     {error && <p className="error-text">{error}</p>}
-                    <button type="submit">Register</button>
+                    <button type="submit">{t('register-button')}</button>
                 </form>
                 <div className="alternative-action">
                     <p>
-                        Already have an account?{' '}
-                        <button onClick={() => navigate('/')}>Login</button>
+                        {t('msg-for-login')}
+                        <button onClick={() => navigate('/')}>{t('login-button')}</button>
                     </p>
                 </div>
             </div>

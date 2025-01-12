@@ -3,12 +3,14 @@ import { useParams, Link } from "react-router-dom";
 import api from "../services/api";
 import ExpenseCard from "./ExpenseCard";
 import '../styles/components/Group.css';
+import { useTranslation } from "react-i18next";
 
 const Group = () => {
     const { id } = useParams();
     const [group, setGroup] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const {t} = useTranslation();
 
     useEffect(() => {
         const fetchGroup = async () => {
@@ -18,7 +20,7 @@ const Group = () => {
                 setGroup(response.data);
                 
             } catch (err) {
-                setError("Error loading group data.");
+                setError(t('error-load-group'));
             } finally {
                 setLoading(false);
             }
@@ -28,7 +30,7 @@ const Group = () => {
     }, [id]);
 
     const handleDelete = async (groupId, expenseId) => {
-        if (!window.confirm("Are you sure you want to delete this expense?")) return;
+        if (!window.confirm(t('msg-delete-expense'))) return;
     
         try {
           await api.delete(`/group/${groupId}/expense/${expenseId}`);
@@ -38,7 +40,7 @@ const Group = () => {
           }));
         } catch (err) {
           console.error(err);
-          alert("Error deleting expense. Please try again later.");
+          alert(t('error-delete-expense'));
         }
       };
 
@@ -48,7 +50,7 @@ const Group = () => {
         setActiveTab(tabName);
     };
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <p>{t('loading')}</p>;
     if (error) return <p>{error}</p>;
 
     return (
@@ -57,8 +59,8 @@ const Group = () => {
                 <img src="/images/isotype.png" alt="Groups Icon" />
             </div>
 
-            <h1 className="main-title">Group: {group.name}</h1>
-            <em>Created by {group.admin}</em>
+            <h1 className="main-title">{t('form-group')} {group.name}</h1>
+            <em>{t('msg-group-creator')} {group.admin}</em>
             <p>{group.description}</p>
 
             {/* Pestañas para Expenses y Balances */}
@@ -67,20 +69,20 @@ const Group = () => {
                     className={`tab-button ${activeTab === "expenses" ? "active" : ""}`}
                     onClick={() => showTab("expenses")}
                 >
-                    Expenses
+                    {t('form-expenses')}
                 </button>
                 <button
                     className={`tab-button ${activeTab === "balances" ? "active" : ""}`}
                     onClick={() => showTab("balances")}
                 >
-                    Balances
+                    {t('form-balances')}
                 </button>
             </div>
 
             {/* Contenido de la pestaña de Expenses */}
             {activeTab === "expenses" && (
                 <div id="expenses" className="tab-content active">
-                    <h2 className="tab-content-title">Expenses</h2>
+                    <h2 className="tab-content-title">{t('form-expenses')}</h2>
                     
                     {Array.isArray(group.expenses) && group.expenses.map((expense) => (
                         <ExpenseCard
@@ -93,7 +95,7 @@ const Group = () => {
 
                     <div className="add-expense">
                         <Link to={`/group/${group.id}/addExpense`} className="add-expense-button">
-                            Add Expense
+                            {t('form-add-expense')}
                         </Link>
                     </div>
                 </div>
@@ -102,7 +104,7 @@ const Group = () => {
             {/* Contenido de la pestaña de Balances */}
             {activeTab === "balances" && (
                 <div id="balances" className="tab-content active">
-                    <h2 className="tab-content-title">Members Balances</h2>
+                    <h2 className="tab-content-title">{t('form-members-balances')}</h2>
 
                     {group.members.length > 0 ? (
                         <ul>
@@ -113,12 +115,12 @@ const Group = () => {
                             ))}
                         </ul>
                     ) : (
-                        <p>No balance information available.</p>
+                        <p>{t('error-balance-info')}</p>
                     )}
 
                     <div className="suggested-movements">
                         <Link to={`/group/${group.id}/movements`} className="suggested-movements-button">
-                            View Suggested Movements
+                            {t('movements-button')}
                         </Link>
                     </div>
                 </div>

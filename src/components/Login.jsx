@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/components/Auth.css';
 import { api } from '../services/api'; // Servicio API
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const {t} = useTranslation();
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
@@ -19,7 +21,7 @@ const Login = () => {
             await api.get(`/user/${username}`);
             navigate('/home'); 
         } catch (err) {
-            setError('Invalid username or password');
+            setError(t('invalid-authentication'));
         }
     };
 
@@ -31,7 +33,7 @@ const Login = () => {
                 </div>
                 <form onSubmit={handleLogin} className="register-form">
                     <div className="form-group">
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="username">{t('form-username')}</label>
                         <input
                             id="username"
                             type="text"
@@ -39,10 +41,10 @@ const Login = () => {
                             onChange={(e) => setUsername(e.target.value)}
                             required
                         />
-                        {error && !username && <span className="error-message">Username is required</span>}
+                        {error && !username && <span className="error-message">{t('error-login-username')}</span>}
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">{t('form-password')}</label>
                         <input
                             id="password"
                             type="password"
@@ -50,15 +52,15 @@ const Login = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        {error && !password && <span className="error-message">Password is required</span>}
+                        {error && !password && <span className="error-message">{t('error-login-password')}</span>}
                     </div>
                     {error && <p className="error-text">{error}</p>}
-                    <button type="submit">Login</button>
+                    <button type="submit">{t('login-button')}</button>
                 </form>
                 <div className="alternative-action">
                     <p>
-                        Don&apos;t have an account?{' '}
-                        <button onClick={() => navigate('/register')}>Register</button>
+                        {t('msg-for-register')} {' '}
+                        <button onClick={() => navigate('/register')}>{t('register-button')}</button>
                     </p>
                 </div>
             </div>

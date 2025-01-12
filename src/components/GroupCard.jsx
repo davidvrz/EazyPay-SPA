@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/components/GroupCard.css";
+import { useTranslation } from "react-i18next";
 
 const GroupCard = ({ group, isAdmin, onDelete }) => {
+  const {t} = useTranslation();
+
   return (
     <div className="group-card">
       <Link to={`/group/${group.id}`} className="group-info-btn">
@@ -15,10 +18,10 @@ const GroupCard = ({ group, isAdmin, onDelete }) => {
         {isAdmin && (
           <>
             <Link to={`/editgroup/${group.id}`} className="edit-btn">
-              Edit
+              {t('edit-button')}
             </Link>
             <button className="delete-btn" onClick={() => onDelete(group.id)}>
-              Delete
+              {t('delete-button')}
             </button>
           </>
         )}

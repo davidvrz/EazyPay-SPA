@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../services/api";
 import "../styles/components/AddExpense.css";
+import { useTranslation } from "react-i18next";
 
 const EditExpense = () => {
   const { id, expenseId } = useParams(); 
   const navigate = useNavigate();
+  const {t} = useTranslation();
 
   const [description, setDescription] = useState("");
   const [totalAmount, setTotalAmount] = useState("");
@@ -23,7 +25,7 @@ const EditExpense = () => {
         const response = await api.get(`/group/${id}`);
         setMembers(response.data.members);
       } catch {
-        setError("Failed to load group members.");
+        setError(t('error-load-group'));
       }
     };
 
@@ -39,7 +41,7 @@ const EditExpense = () => {
         setSelectedMembers(Object.keys(expense.participants));
         setSplitMethod("manual");
       } catch {
-        setError("Failed to load expense details.");
+        setError(t('error-load-expense'));
       }
     };
 
@@ -96,10 +98,10 @@ const EditExpense = () => {
 
     try {
       await api.put(`/group/${id}/expense/${expenseId}`, expenseData);
-      alert("Expense updated successfully!");
+      alert(t('msg-update-expense'));
       navigate(`/group/${id}`);
     } catch {
-      setError("Error updating the expense.");
+      setError(t('error-update-expense'));
     } finally {
       setLoading(false);
     }
@@ -107,12 +109,12 @@ const EditExpense = () => {
 
   return (
     <div className="main">
-      <h1>Edit Expense</h1>
+      <h1>{t('form-edit-expense')}</h1>
       {error && <p className="error">{error}</p>}
 
       <form id="expense-form" onSubmit={handleSubmit}>
         <label>
-          Description:
+          {t('form-expense-description')}
           <input
             type="text"
             value={description}
@@ -122,7 +124,7 @@ const EditExpense = () => {
         </label>
 
         <label>
-          Total Amount:
+          {t('form-expense-total-amount')}
           <input
             type="number"
             value={totalAmount}
@@ -132,7 +134,7 @@ const EditExpense = () => {
         </label>
 
         <label>
-          Payer:
+          {t('form-expense-payer')}
           <select
             value={payer}
             onChange={(e) => setPayer(e.target.value)}
@@ -146,7 +148,7 @@ const EditExpense = () => {
           </select>
         </label>
 
-        <label>Split Method:</label>
+        <label>{t('form-expense-split-mode')}</label>
         <div>
           <label>
             <input
@@ -156,7 +158,7 @@ const EditExpense = () => {
               checked={splitMethod === "equitable"}
               onChange={() => setSplitMethod("equitable")}
             />
-            Equitable
+            {t('split-mode-equitable')}
           </label>
           <label>
             <input
@@ -166,12 +168,12 @@ const EditExpense = () => {
               checked={splitMethod === "manual"}
               onChange={() => setSplitMethod("manual")}
             />
-            Manual
+            {t('split-mode-manual')}
           </label>
         </div>
 
         <div className="participants">
-          <h3>Participants</h3>
+          <h3>{t('form-expense-participants')}</h3>
           {members.map((member) => (
             <div key={member.username} className="participant">
               <label>
@@ -196,7 +198,7 @@ const EditExpense = () => {
         </div>
 
         <button id="edit-expense-button" type="submit" disabled={loading}>
-          {loading ? "Updating..." : "Update Expense"}
+          {loading ? t('updating...') : t('form-update-expense')}
         </button>
       </form>
     </div>

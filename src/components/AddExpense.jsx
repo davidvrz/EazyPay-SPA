@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../services/api"; // Asegúrate de que la ruta de la API sea correcta
 import '../styles/components/AddExpense.css';
+import { useTranslation } from "react-i18next";
 
 const AddExpense = () => {
   const { id } = useParams(); // Obtén el ID del grupo desde la URL
   const navigate = useNavigate(); // Para redirigir después de agregar el gasto
+  const {t} = useTranslation();
 
   const [description, setDescription] = useState("");
   const [totalAmount, setTotalAmount] = useState("");
@@ -25,7 +27,7 @@ const AddExpense = () => {
         setSelectedMembers(response.data.members.map(member => member.username)); // Todos seleccionados por defecto
         setPayer(response.data.members[0].username);
       } catch (err) {
-        setError("Failed to load group data.");
+        setError(t('error-load-group'));
       }
     };
 
@@ -73,22 +75,22 @@ const AddExpense = () => {
     // Preparamos el objeto participants en el formato correcto
     const participantsData = {};
     selectedMembers.forEach((username) => {
-      participantsData[username] = participantAmounts[username] || "0.00";
+      participantsData[username] = participantAmounts[username] || "0.00"; // Aseguramos que todos los participantes tengan un monto
     });
 
     const expenseData = {
       description,
-      totalAmount: totalAmount.toFixed(2),
+      totalAmount: totalAmount.toFixed(2), // Asegúrate de que el totalAmount esté en formato string con dos decimales
       payer,
-      participants: participantsData, 
+      participants: participantsData, // Aquí enviamos los participantes en el formato correcto
     };
 
     try {
-      await api.post(`/group/${id}/expense`, expenseData);
-      alert("Expense created successfully!");
+      const response = await api.post(`/group/${id}/expense`, expenseData);
+      alert(t('msg-create-expense'));
       navigate(`/group/${id}`);
     } catch (err) {
-      setError("Error creating the expense.");
+      setError(t('error-create-expense'));
     } finally {
       setLoading(false);
     }
@@ -96,12 +98,12 @@ const AddExpense = () => {
 
   return (
     <div className="main">
-      <h1>Add Expense to Group</h1>
+      <h1>{t('form-add-expense-group')}</h1>
       {error && <p className="error">{error}</p>}
 
       <form id="expense-form" onSubmit={handleSubmit}>
         <label>
-          Description:
+          {t('form-expense-description')}
           <input
             type="text"
             value={description}
@@ -111,7 +113,7 @@ const AddExpense = () => {
         </label>
 
         <label>
-          Total Amount:
+          {t('form-expense-total-amount')}
           <input
             type="number"
             value={totalAmount}
@@ -121,7 +123,7 @@ const AddExpense = () => {
         </label>
 
         <label>
-          Payer:
+          {t('form-expense-payer')}
           <select
             value={payer}
             onChange={(e) => setPayer(e.target.value)}
@@ -135,7 +137,7 @@ const AddExpense = () => {
           </select>
         </label>
 
-        <label>Split Method:</label>
+        <label>{t('form-expense-split-mode')}</label>
         <div>
           <label>
             <input
@@ -145,7 +147,7 @@ const AddExpense = () => {
               checked={splitMethod === "equitable"}
               onChange={() => setSplitMethod("equitable")}
             />
-            Equitable
+            {t('split-mode-equitable')}
           </label>
           <label>
             <input
@@ -155,12 +157,12 @@ const AddExpense = () => {
               checked={splitMethod === "manual"}
               onChange={() => setSplitMethod("manual")}
             />
-            Manual
+            {t('split-mode-manual')}
           </label>
         </div>
 
         <div className="participants">
-          <h3>Participants</h3>
+          <h3>{t('form-expense-participants')}</h3>
           {members.map((member) => (
             <div key={member.username} className="participant">
               <label>
@@ -185,7 +187,7 @@ const AddExpense = () => {
         </div>
 
         <button id="add-expense-button" type="submit" disabled={loading}>
-          {loading ? "Adding..." : "Add Expense"}
+          {loading ? t('adding') : t('form-add-expense')}
         </button>
       </form>
     </div>

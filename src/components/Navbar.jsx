@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import '../styles/components/Navbar.css'
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = ({ changeView }) => {
     const currentUser = localStorage.getItem("username");
+    const {t} = useTranslation();
 
     const handleLogout = () => {
         localStorage.removeItem('username');
@@ -19,8 +21,8 @@ const Navbar = ({ changeView }) => {
             )}
 
                 <ul className="navbar-links">
-                    <li><button onClick={handleLogout}>Logout</button></li>
-                    <li><button>Profile of {currentUser}</button></li>
+                    <li><button onClick={handleLogout}>{t('navbar-logout')}</button></li>
+                    <li><button>{t('navbar-profile')}{currentUser}</button></li>
                 </ul>
                 <div className="navbar-toggle">
                     <span></span>
