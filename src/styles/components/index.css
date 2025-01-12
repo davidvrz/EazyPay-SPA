@@ -72,6 +72,27 @@ body {
   font-size: 14px;
 }
 
+button {
+  background-color: #9EC7C4; /* Color principal de la aplicación */
+  color: white;
+  font-weight: bold;
+  padding: 12px 20px;
+  border: none;
+  border-radius:10px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  transition: background-color 0.3s ease; /* Transición suave para el hover */
+}
+
+button:hover {
+  background-color: #8bb5a1; /* Color más oscuro al pasar el ratón */
+}
+
+.back-button{
+  margin-top: 1%;
+}
+
 #flash {
   max-width: 600px;
   margin: 20px auto;

@@ -79,23 +79,6 @@
   margin-right: 10px;
 }
 
-/* Estilos de los botones */
-button {
-  background-color: #9EC7C4; /* Color principal de la aplicación */
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  width: 100%;
-  transition: background-color 0.3s ease; /* Transición suave para el hover */
-}
-
-button:hover {
-  background-color: #8bb5a1; /* Color más oscuro al pasar el ratón */
-}
-
 /* Estilo de los enlaces de acción alternativa */
 .alternative-action {
   margin-top: 1.5rem;
