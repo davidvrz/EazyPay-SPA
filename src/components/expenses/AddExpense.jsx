@@ -191,7 +191,7 @@ const AddExpense = () => {
         </button>
       </form>
 
-      <div class="back-button">
+      <div className="back-button">
         <button onClick={() => navigate(`/group/${id}`)}>{t('back-button')}</button>
       </div>
     </div>

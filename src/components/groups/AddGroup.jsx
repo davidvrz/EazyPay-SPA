@@ -122,7 +122,7 @@ const AddGroup = () => {
         {errors.general && <div className="error-message">{errors.general}</div>}
       </form>
 
-      <div class="back-button">
+      <div className="back-button">
         <button onClick={() => navigate(`/home`)}>{t('back-button')}</button>
       </div>
     </div>

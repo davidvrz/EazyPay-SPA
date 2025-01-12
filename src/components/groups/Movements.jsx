@@ -52,10 +52,10 @@ const Movements = () => {
         <ul className="movements-list">
           {movements.map((movement, index) => (
             <li key={index} className="movement-item">
-              <span class="movement-payer">{movement.from}</span>
-              <span class="movement-action">{t('movement_debts')}</span>
-              <span class="movement-receiver">{movement.to}</span>
-              <span class="movement-amount">{movement.amount} €</span>
+              <span className="movement-payer">{movement.from}</span>
+              <span className="movement-action">{t('movement_debts')}</span>
+              <span className="movement-receiver">{movement.to}</span>
+              <span className="movement-amount">{movement.amount} €</span>
             </li>
           ))}
         </ul>
@@ -63,7 +63,7 @@ const Movements = () => {
         <p>{t('error-movements-info')}</p>
       )}
 
-      <div class="back-button">
+      <div className="back-button">
         <button onClick={() => navigate(`/group/${groupId}`)}>{t('back-button')}</button>
       </div>
     </div>

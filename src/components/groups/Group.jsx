@@ -127,7 +127,7 @@ const Group = () => {
                 </div>
             )}
 
-            <div class="back-button">
+            <div className="back-button">
                 <button onClick={() => navigate(`/home`)}>{t('back-button')}</button>
             </div>
         </div>

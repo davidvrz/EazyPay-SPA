@@ -37,8 +37,17 @@ const EditExpense = () => {
         setDescription(expense.description);
         setTotalAmount(expense.totalAmount);
         setPayer(expense.payer);
-        setParticipantAmounts(expense.participants);
-        setSelectedMembers(Object.keys(expense.participants));
+
+        // Transformar array de participantes a un objeto
+        const participantAmountsObj = expense.participants.reduce((acc, participant) => {
+          acc[participant.username] = participant.amount;
+          return acc;
+        }, {});
+
+        setParticipantAmounts(participantAmountsObj);
+        console.log(participantAmounts);
+        setSelectedMembers(expense.participants.map(participant => participant.username));
+        console.log(selectedMembers);
         setSplitMethod("manual");
       } catch {
         setError(t('error-load-expense'));
@@ -84,10 +93,13 @@ const EditExpense = () => {
     e.preventDefault();
     setLoading(true);
 
-    const participantsData = {};
-    selectedMembers.forEach((username) => {
-      participantsData[username] = participantAmounts[username] || "0.00";
-    });
+    const participantsData = selectedMembers.map((username) => ({
+      username,
+      amount: participantAmounts[username] || "0.00"
+    }));
+
+    console.log("Datos");
+    console.log(participantsData);
 
     const expenseData = {
       description,
@@ -202,7 +214,7 @@ const EditExpense = () => {
         </button>
       </form>
 
-      <div class="back-button">
+      <div className="back-button">
         <button onClick={() => navigate(`/group/${id}`)}>{t('back-button')}</button>
       </div>
     </div>
