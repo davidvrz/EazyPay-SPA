@@ -93,13 +93,10 @@ const EditExpense = () => {
     e.preventDefault();
     setLoading(true);
 
-    const participantsData = selectedMembers.map((username) => ({
-      username,
-      amount: participantAmounts[username] || "0.00"
-    }));
-
-    console.log("Datos");
-    console.log(participantsData);
+    const participantsData = selectedMembers.reduce((acc, username) => {
+      acc[username] = participantAmounts[username] || "0.00";
+      return acc;
+    }, {});
 
     const expenseData = {
       description,
