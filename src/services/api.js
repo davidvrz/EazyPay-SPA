@@ -15,12 +15,17 @@ const getAuthHeader = () => {
 };
 
 const handleResponse = async (response) => {
+  const errorData = await response.json();
   if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.errors?.join(', ') || 'Unexpected error occurred');
+    // Lanza un error con detalles del mensaje si están disponibles
+    throw { 
+      status: response.status, 
+      errors: errorData.errors || { general: 'Unexpected error occurred' }
+    };
   }
-  return response.json();
+  return errorData;
 };
+
 
 // Función genérica para manejar las peticiones
 const request = async (endpoint, method = 'GET', body = null, headers = {}) => {
