@@ -1,0 +1,16 @@
+{
+    "register-button":"Rexistro",
+    "login-button":"Iniciar sesión",
+
+
+
+    "msg-for-register":"Aínda non tes unha conta?",
+    
+    
+    "error-login-username":"O usuario é requerido",
+
+
+    "english":"Inglés",
+    "spanish":"Castelán",
+    "galician":"Galego"
+}

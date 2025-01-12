@@ -1,0 +1,119 @@
+{
+    "BUTTONS":"",
+    "register-button":"Register",
+    "login-button":"Login",
+    "edit-button":"Edit",
+    "delete-button":"Delete",
+    "remove-button":"Remove",
+    "movements-button":"View suggested movements",
+
+
+    "FORMS":"",
+    "loading":"Loading...",
+    "adding":"Adding...",
+    "updating":"Updating...",
+    
+    "form-username":"Username",
+    "form-password":"Password",
+    "form-email":"Email",
+    
+    "form-groups":"Groups",
+    "form-group":"Group:",
+    "form-create-group":"Create a group",
+    "form-edit-group":"Edit group",
+    "form-update-group":"Update group",
+    
+    "form-expenses":"Expenses",
+    "form-add-expense":"Add expense",
+    "form-add-expense-group":"Add expense to group",
+    "form-edit-expense":"Edit expense",
+    "form-update-expense":"Update expense",
+    
+    "form-balances":"Balances",
+    "form-members-balances":"Members' balances",
+
+    "form-suggested-movements":"Suggested movements",
+
+    "msg-for-register":"Don't have an account?",
+    "msg-for-login":"Already have an account?",
+    
+    "msg-create-group":"Group created successfully!",
+    "msg-update-group":"Group updated successfully!",
+    "msg-delete-group":"Are you sure you want to delete this group?",
+    
+    "msg-create-expense":"Expense created successfully!",
+    "msg-update-expense":"Expense updated successfully!",
+    "msg-delete-expense":"Are you sure you want to delete this expense?",
+    
+    
+    "ERRORS":"",
+    "invalid-authentication":"Invalid username or password",
+    "error-registration":"Registration failed",
+    "error-login-username":"Username is required",
+    "error-login-password":"Password is required",
+    "error-login-email":"Email is required",
+
+    "error-unexpected-structure":"Unexpected response structure",
+    "error-fetching-groups":"Error fetching groups. Please try again later.",
+    
+    "error-load-group":"Failed to load group data",
+    "error-create-group":"An error ocurred while creating the group.",
+    "error-update-group":"An error ocurred while updating the group.",
+    "error-delete-group":"Error deleting group. Please try again later.",
+    
+    "error-load-expense":"Failed to load expense data",
+    "error-create-expense":"An error ocurred while creating the expense.",
+    "error-update-expense":"An error ocurred while updating the expense.",
+    "error-delete-expense":"Error deleting expense. Please try again later.",
+    
+    "error-balance-info":"No balance information available.",
+    
+    "error-load-movements":"Failed to load suggested movements",
+    
+    "error-movements-info":"No suggested movements available.",
+
+
+    "GROUP":"",
+    "form-group-name":"Name",
+    "form-group-description":"Description",
+    "form-group-participants":"Participants",
+    "form-add-participants":"Add participant",
+    "msg-group-creator":"Created by ",
+
+
+    "EXPENSE":"",
+    "expense_payment":" paid ",
+    "form-expense-description":"Description",
+    "form-expense-total-amount":"Total amount",
+    "form-expense-payer":"Payer",
+    "form-expense-split-mode":"Split mode",
+    "split-mode-equitable":"Equitable",
+    "split-mode-manual":"Manual",
+    "form-expense-participants":"Participants",
+    "form-expense-details":"Expense details",
+
+
+    "MOVEMENTS":"",
+    "movement_debts":" debts to ",
+
+
+    "FOOTER":"",
+    "footer-about":"About us",
+    "footer-about-description":"We are a leading company in the online payments market. Our goal is to make our customers lives easier.",
+    "footer-language":"Select language",
+    "footer-contact":"Contact with us",
+    "footer-contact-mail":"info@eazypay.com",
+    "footer-contact-phone":"+34 684735671",
+    "footer-bottom":"EazyPay | All rights reserved",
+
+
+    "NAVBAR":"",
+    "navbar-logout":"Logout",
+    "navbar-profile":"Profile of",
+
+
+    "LANGUAGES":"",
+    "english":"English",
+    "spanish":"Spanish",
+    "galician":"Galician"
+}

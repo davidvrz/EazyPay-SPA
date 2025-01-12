@@ -1,0 +1,119 @@
+{
+    "BUTTONS":"",
+    "register-button":"Registro",
+    "login-button":"Iniciar sesión",
+    "edit-button":"Editar",
+    "delete-button":"Eliminar",
+    "remove-button":"Eliminar",
+    "movements-button":"Ver movimientos sugeridos",
+    
+
+    "FORMS":"",
+    "loading":"Cargando...",
+    "adding":"Añadiendo...",
+    "updating":"Actualizando...",
+    
+    "form-username":"Usuario",
+    "form-password":"Contraseña",
+    "form-email":"Correo",
+    
+    "form-groups":"Grupos",
+    "form-group":"Grupo:",
+    "form-create-group":"Crear un grupo",
+    "form-edit-group":"Editar un grupo",
+    "form-update-group":"Actualizar grupo",
+    
+    "form-expenses":"Gastos",
+    "form-add-expense":"Añadir un gasto",
+    "form-add-expense-group":"Añadir un gasto al grupo",
+    "form-edit-expense":"Editar un gasto",
+    "form-update-expense":"Actualizar gasto",
+    
+    "form-balances":"Saldos",
+    "form-members-balances":"Saldos de miembros",
+
+    "form-suggested-movements":"Movimientos sugeridos",
+
+    "msg-for-register":"¿Todavía no tienes cuenta?",
+    "msg-for-login":"¿Ya tienes cuenta?",
+    
+    "msg-create-group":"¡Grupo creado con éxito!",
+    "msg-update-group":"¡Grupo actualizado con éxito!",
+    "msg-delete-group":"¿Estás seguro de que quieres eliminar este grupo?",
+    
+    "msg-create-expense":"¡Gasto creado con éxito!",
+    "msg-update-expense":"¡Gasto actualizado con éxito!",
+    "msg-delete-expense":"¿Estás seguro de que quieres eliminar este gasto?",
+    
+
+    "ERRORS":"",
+    "invalid-authentication":"Usuario o contraseña incorrecto",
+    "error-registration":"Fallo en el registro",
+    "error-login-username":"Usuario requerido",
+    "error-login-password":"Contraseña requerida",
+    "error-login-email":"Correo requerido",
+
+    "error-unexpected-structure":"Estructura de respuesta inesperada",
+    "error-fetching-groups":"Error al buscar grupos. Por favor, intentelo más tarde.",
+    
+    "error-load-group":"Fallo al cargar los datos del grupo",
+    "error-create-group":"Fallo al crear el grupo",
+    "error-update-group":"Fallo al actualizar el grupo",
+    "error-delete-group":"Error al eliminar el grupo. Por favor, intentelo más tarde.",
+    
+    "error-load-expense":"Fallo al cargar los datos del gasto",
+    "error-delete-expense":"Error al eliminar el gasto. Por favor, intentelo más tarde.",
+    "error-update-expense":"Fallo al actualizar el gasto",
+    "error-create-expense":"Fallo al crear el gasto.",
+
+    "error-balance-info":"No hay información de saldos disponible.",
+    
+    "error-load-movements":"Fallo al cargar los movimientos sugeridos",
+    
+    "error-movements-info":"No hay información de movimientos sugeridos disponible.",
+
+
+    "GROUP":"",
+    "form-group-name":"Nombre",
+    "form-group-description":"Descripción",
+    "form-group-participants":"Participantes",
+    "form-add-participants":"Añadir participante",
+    "msg-group-creator":"Creado por ",
+    
+    
+    "EXPENSE":"",
+    "expense_payment":" pagó ",
+    "form-expense-description":"Descripción",
+    "form-expense-total-amount":"Monto total",
+    "form-expense-payer":"Pagador",
+    "form-expense-split-mode":"Modo de división",
+    "split-mode-equitable":"Equitativo",
+    "split-mode-manual":"Manual",
+    "form-expense-participants":"Participantes",
+    "form-expense-details":"Detalles del gasto",
+    
+
+    "MOVEMENTS":"",
+    "movement_debts":" debe a ",
+
+
+    "FOOTER":"",
+    "footer-about":"Sobre nosotros",
+    "footer-about-description":"Somos una empresa lider en el mercado de pagos online. Nuestro objetivo es hacer la vida de nuestros clientes más fácil.",
+    "footer-language":"Seleccione idioma",
+    "footer-contact":"Contacte con nosotros",
+    "footer-contact-mail":"info@eazypay.com",
+    "footer-contact-phone":"+34 684735671",
+    "footer-bottom":"EazyPay | Todos los derechos reservados",
+    
+
+    "NAVBAR":"",
+    "navbar-logout":"Cerrar sesión",
+    "navbar-profile":"Perfil de ",
+
+
+    "LANGUAGES":"",
+    "english":"Inglés",
+    "spanish":"Español",
+    "galician":"Gallego"
+}
