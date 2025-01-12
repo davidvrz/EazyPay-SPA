@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import "../../styles/components/Expense.css";
 import { useTranslation } from "react-i18next";
@@ -9,6 +9,7 @@ const Expense = () => {
   const [expense, setExpense] = useState(null);
   const [error, setError] = useState("");
   const {t} = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchExpenseDetails = async () => {
@@ -64,6 +65,10 @@ const Expense = () => {
             ))}
           </ul>
         </div>
+      </div>
+
+      <div className="back-button">
+        <button onClick={() => navigate(`/group/${id}`)}>{t('back-button')}</button>
       </div>
 
     </div>
