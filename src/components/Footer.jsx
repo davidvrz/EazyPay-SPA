@@ -22,7 +22,6 @@ const Footer = ({ changeView }) => {
                     <h2 className="footer-title">{t('footer-language')}</h2>
                     <button className="footer-language-btn" onClick={() => changeLanguage('en')}>{t('english')}</button>
                     <button className="footer-language-btn" onClick={() => changeLanguage('es')}>{t('spanish')}</button>
-                    <button className="footer-language-btn" onClick={() => changeLanguage('gal')}>{t('galician')}</button>
 
                 </section>
 
