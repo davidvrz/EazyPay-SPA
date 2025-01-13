@@ -17,7 +17,7 @@ const AddExpense = () => {
   const [participantAmounts, setParticipantAmounts] = useState({});
   const [splitMethod, setSplitMethod] = useState("equitable");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const fetchGroupMembers = async () => {
@@ -27,7 +27,7 @@ const AddExpense = () => {
         setSelectedMembers(response.data.members.map(member => member.username)); // Todos seleccionados por defecto
         setPayer(response.data.members[0].username);
       } catch (err) {
-        setError(t('error-load-group'));
+        setErrors(t('error-load-group'));
       }
     };
 
@@ -70,7 +70,6 @@ const AddExpense = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
     // Preparamos el objeto participants en el formato correcto
     const participantsData = {};
@@ -80,37 +79,38 @@ const AddExpense = () => {
 
     const expenseData = {
       description,
-      totalAmount: totalAmount.toFixed(2), // Asegúrate de que el totalAmount esté en formato string con dos decimales
+      totalAmount: parseFloat((totalAmount || 0).toFixed(2)), // Asegúrate de que el totalAmount esté en formato string con dos decimales
       payer,
       participants: participantsData, // Aquí enviamos los participantes en el formato correcto
     };
 
     try {
-      const response = await api.post(`/group/${id}/expense`, expenseData);
-      alert(t('msg-create-expense'));
+      await api.post(`/group/${id}/expense`, expenseData);
       navigate(`/group/${id}`);
     } catch (err) {
-      setError(t('error-create-expense'));
-    } finally {
-      setLoading(false);
+      setErrors(err.errors);
     }
   };
 
   return (
     <div className="main">
       <h1>{t('form-add-expense-group')}</h1>
-      {error && <p className="error">{error}</p>}
 
       <form id="expense-form" onSubmit={handleSubmit}>
+      
         <label>
           {t('form-expense-description')}
           <input
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            required
+            
           />
         </label>
+
+        {errors.description && (
+          <div className="error-message">{t(`error.${errors.description}`)}</div>
+        )}
 
         <label>
           {t('form-expense-total-amount')}
@@ -118,16 +118,20 @@ const AddExpense = () => {
             type="number"
             value={totalAmount}
             onChange={(e) => setTotalAmount(Math.max(0, e.target.value))}
-            required
+            
           />
         </label>
+
+        {errors.totalAmount && (
+          <div className="error-message">{t(`error.${errors.totalAmount}`)}</div>
+        )}
 
         <label>
           {t('form-expense-payer')}
           <select
             value={payer}
             onChange={(e) => setPayer(e.target.value)}
-            required
+            
           >
             {members.map((member) => (
               <option key={member.username} value={member.username}>
@@ -136,6 +140,10 @@ const AddExpense = () => {
             ))}
           </select>
         </label>
+
+        {errors.payer && (
+          <div className="error-message">{t(`error.${errors.payer}`)}</div>
+        )}
 
         <label>{t('form-expense-split-mode')}</label>
         <div>
@@ -179,15 +187,21 @@ const AddExpense = () => {
                   value={participantAmounts[member.username] || ""}
                   onChange={(e) => handleAmountChange(member.username, e.target.value)}
                   disabled={splitMethod === "equitable"}
-                  required
+                  
                 />
               )}
             </div>
+
           ))}
         </div>
 
+        {errors.participants && (
+          <div className="error-message">{Array.isArray(errors.participants) ? errors.participants.map(error => t(`error.${error}`)).join(", ")
+            : t(`error.${errors.participants}`)}</div>
+        )}
+      
         <button id="add-expense-button" type="submit" disabled={loading}>
-          {loading ? t('adding') : t('form-add-expense')}
+          {t('form-add-expense')}
         </button>
       </form>
 

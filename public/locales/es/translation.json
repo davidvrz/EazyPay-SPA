@@ -120,7 +120,7 @@
     "message": {
         "USERREST":"",
         "register-successfully":"Usuario registrado con éxito.",
-        "login-successfully":"Hola ",
+        "login-successfully":"Bienvenido",
         
         
         "GROUPREST":"",
@@ -185,7 +185,7 @@
         "EXPENSEREST":"",
         "error-expense-not-found":"Gasto no encontrado.",
         "error-expense-not-belong-to-group":"El gasto no pertenece al grupo especificado.",
-        "error-expense-invalid-participant-or-amount":"Participante o monto inválido de ",
+        "error-expense-invalid-participant-or-amount":"Participante o monto inválido.",
         "error-unauthorized-update-expense":"No estás autorizado para actualizar este gasto.",
         "error-unauthorized-delete-expense":"No estás autorizado para eliminar este gasto.",
 

@@ -39,8 +39,7 @@ const GroupList = () => {
       await api.delete(`/group/${groupId}`);
       setGroups((prevGroups) => prevGroups.filter((group) => group.id !== groupId));
     } catch (err) {
-      console.error(err);
-      alert(t('error-delete-group'));
+      setError(err.errors);
     }
   };
 

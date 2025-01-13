@@ -59,7 +59,6 @@ const EditGroup = () => {
       if (response.errors) {
         setErrors(response.errors);
       } else {
-        alert(t('msg-update-group'));
         navigate(`/group/${id}`); 
       }
     } catch (err) {
@@ -85,7 +84,7 @@ const EditGroup = () => {
             onChange={(e) => setName(e.target.value)}
           />
         </label>
-        <div className="error-message">{errors.name}</div>
+        {errors.name && <div className="error-message">{t(`error.${errors.name}`)}</div>}
 
         <label>
           {t('form-group-description')}
@@ -97,7 +96,9 @@ const EditGroup = () => {
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </label>
-        <div className="error-message">{errors.description}</div>
+        {errors.description && (
+          <div className="error-message">{t(`error.${errors.description}`)}</div>
+        )}
 
         <div id="members-container">
           <label>{t('form-group-participants')}</label>
@@ -126,7 +127,10 @@ const EditGroup = () => {
         <button type="button" id="add-participant" onClick={handleAddMember}>
           {t('form-add-participants')}
         </button>
-        <div className="error-message">{errors.members}</div>
+        {errors.members && (
+          <div className="error-message">{Array.isArray(errors.members) ? errors.members.map(error => t(`error.${error}`)).join(", ") 
+          : t(`error.${errors.members}`)}</div>
+        )}
 
         <button type="submit">{t('form-update-group')}</button>
         {errors.general && <div className="error-message">{errors.general}</div>}

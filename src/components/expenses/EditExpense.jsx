@@ -17,7 +17,7 @@ const EditExpense = () => {
   const [participantAmounts, setParticipantAmounts] = useState({});
   const [splitMethod, setSplitMethod] = useState("manual");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const fetchGroupMembers = async () => {
@@ -25,7 +25,7 @@ const EditExpense = () => {
         const response = await api.get(`/group/${id}`);
         setMembers(response.data.members);
       } catch {
-        setError(t('error-load-group'));
+        setErrors(t('error-load-group'));
       }
     };
 
@@ -45,12 +45,10 @@ const EditExpense = () => {
         }, {});
 
         setParticipantAmounts(participantAmountsObj);
-        console.log(participantAmounts);
         setSelectedMembers(expense.participants.map(participant => participant.username));
-        console.log(selectedMembers);
         setSplitMethod("manual");
       } catch {
-        setError(t('error-load-expense'));
+        setErrors(t('error-load-expense'));
       }
     };
 
@@ -100,26 +98,22 @@ const EditExpense = () => {
 
     const expenseData = {
       description,
-      totalAmount: parseFloat(totalAmount).toFixed(2),
+      totalAmount: parseFloat((totalAmount || 0).toFixed(2)),
       payer,
       participants: participantsData,
     };
 
     try {
       await api.put(`/group/${id}/expense/${expenseId}`, expenseData);
-      alert(t('msg-update-expense'));
       navigate(`/group/${id}`);
-    } catch {
-      setError(t('error-update-expense'));
-    } finally {
-      setLoading(false);
+    } catch (err){
+      setErrors(err.errors);
     }
   };
 
   return (
     <div className="main">
       <h1>{t('form-edit-expense')}</h1>
-      {error && <p className="error">{error}</p>}
 
       <form id="expense-form" onSubmit={handleSubmit}>
         <label>
@@ -128,9 +122,12 @@ const EditExpense = () => {
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            required
           />
         </label>
+
+        {errors.description && (
+          <div className="error-message">{t(`error.${errors.description}`)}</div>
+        )}
 
         <label>
           {t('form-expense-total-amount')}
@@ -138,9 +135,12 @@ const EditExpense = () => {
             type="number"
             value={totalAmount}
             onChange={(e) => setTotalAmount(Math.max(0, e.target.value))}
-            required
           />
         </label>
+
+        {errors.totalAmount && (
+          <div className="error-message">{t(`error.${errors.totalAmount}`)}</div>
+        )}
 
         <label>
           {t('form-expense-payer')}
@@ -156,6 +156,10 @@ const EditExpense = () => {
             ))}
           </select>
         </label>
+
+        {errors.payer && (
+          <div className="error-message">{t(`error.${errors.payer}`)}</div>
+        )}
 
         <label>{t('form-expense-split-mode')}</label>
         <div>
@@ -199,15 +203,19 @@ const EditExpense = () => {
                   value={participantAmounts[member.username] || ""}
                   onChange={(e) => handleAmountChange(member.username, e.target.value)}
                   disabled={splitMethod === "equitable"}
-                  required
                 />
               )}
             </div>
           ))}
         </div>
 
+        {errors.participants && (
+          <div className="error-message">{Array.isArray(errors.participants) ? errors.participants.map(error => t(`error.${error}`)).join(", ")
+            : t(`error.${errors.participants}`)}</div>
+        )}
+
         <button id="edit-expense-button" type="submit" disabled={loading}>
-          {loading ? t('updating...') : t('form-update-expense')}
+          {t('form-update-expense')}
         </button>
       </form>
 

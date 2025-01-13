@@ -56,12 +56,6 @@
   outline: none;
 }
 
-.error-message {
-  color: #e74c3c;
-  font-size: 0.9rem;
-  margin-top: 5px;
-}
-
 .error-text {
   color: #e74c3c;
   font-size: 1rem;

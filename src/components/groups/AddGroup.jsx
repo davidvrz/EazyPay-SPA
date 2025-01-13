@@ -6,14 +6,14 @@ import { useTranslation } from "react-i18next";
 
 const AddGroup = () => {
   const navigate = useNavigate();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+  const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     members: [localStorage.getItem("username")],
   });
-  const [errors, setErrors] = useState({});
 
   // Actualizar valores del formulario
   const handleChange = (e) => {
@@ -44,14 +44,12 @@ const AddGroup = () => {
   // Enviar formulario para crear el grupo
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors({});
     try {
       await api.post("/group", formData);
-      alert(t('msg-create-group'));
-      navigate("/home"); 
+      navigate("/home");
     } catch (err) {
       setErrors(err.errors);
-      
+      console.log(err.errors);
     }
   };
 
@@ -111,8 +109,8 @@ const AddGroup = () => {
           {t('form-add-participants')}
         </button>
         {errors.members && (
-          <div className="error-message">{Array.isArray(errors.members) ? errors.members.map(error => t(`error.${error}`)).join(", ") 
-          : t(`error.${errors.members}`)}</div>
+          <div className="error-message">{Array.isArray(errors.members) ? errors.members.map(error => t(`error.${error}`)).join(", ")
+            : t(`error.${errors.members}`)}</div>
         )}
 
 

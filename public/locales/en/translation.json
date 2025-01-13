@@ -166,7 +166,7 @@
         
         
         "BASEREST":"",
-        "error-unauthorized-operation":"This operation requires authentication.",
+        "error-unauthorized-operation":"This operation requires authentication by a user.",
         
         
         "USERREST":"",
@@ -185,7 +185,7 @@
         "EXPENSEREST":"",
         "error-expense-not-found":"Expense not found.",
         "error-expense-not-belong-to-group":"Expense does not belong to the specified group.",
-        "error-expense-invalid-participant-or-amount":"Invalid participant or amount of ",
+        "error-expense-invalid-participant-or-amount":"Invalid participant or amount.",
         "error-unauthorized-update-expense":"You are not authorized to update this expense.",
         "error-unauthorized-delete-expense":"You are not authorized to delete this expense.",
 

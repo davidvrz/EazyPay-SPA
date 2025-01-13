@@ -41,7 +41,6 @@ const Group = () => {
           }));
         } catch (err) {
           console.error(err);
-          alert(t('error-delete-expense'));
         }
       };
 
