@@ -115,5 +115,81 @@
 
     "LANGUAGES":"",
     "english":"Inglés",
-    "spanish":"Español"
+    "spanish":"Español",
+
+    "message": {
+        "USERREST":"",
+        "register-successfully":"Usuario registrado con éxito.",
+        "login-successfully":"Hola ",
+        
+        
+        "GROUPREST":"",
+        "group-delete-successfully":"Grupo borrado con éxito.",
+        
+        
+        "EXPENSEREST":"",
+        "expense-delete-successfully":"Gasto borrado con éxito."
+    },
+
+    "error": {
+        "REGISTER/LOGIN":"",
+        "error-username-required":"El nombre de usuario es obligatorio.",
+        "error-username-min-length":"El nombre de usuario debe tener al menos 5 caracteres.",
+        "error-username-no-spaces":"El nombre de usuario no debe contener espacios.",
+        "error-email-required":"El correo electrónico es obligatorio.",
+        "error-email-format":"El correo electrónico debe tener un formato válido, por ejemplo, usuario@dominio.",
+        "error-password-required":"La contraseña es obligatoria.",
+        "error-password-min-length":"La contraseña debe tener al menos 5 caracteres.",
+        "error-user-invalid":"Usuario inválido.",
+
+
+        "GROUP":"",
+        "error-group-name-required":"El nombre del grupo es obligatorio.",
+        "error-group-description-required":"La descripción del grupo es obligatoria.",
+        "error-group-admin-required":"El administrador es obligatorio.",
+        "error-group-min-members":"El grupo debe tener al menos dos miembros.",
+        "error-group-balance-numeric":"El saldo debe ser numérico.",
+        "error-group-id-required":"El ID del grupo es obligatorio.",
+        "error-group-invalid":"Grupo inválido.",
+
+
+        "EXPENSE":"",
+        "error-expense-description-required":"La descripción del gasto es obligatoria.",
+        "error-expense-amount-greater-than-zero":"El monto total debe ser mayor que cero.",
+        "error-expense-group-required":"El grupo es obligatorio.",
+        "error-expense-payer-required":"El pagador es obligatorio.",
+        "error-expense-min-participants":"Se requiere al menos un participante.",
+        "error-expense-amount-invalid":"Cada participante debe tener un monto válido.",
+        "error-expense-total-amount-invalid":"La suma de los montos de los participantes debe ser igual al monto total.",
+        "error-expense-id-required":"El ID del gasto es obligatorio.",
+        "error-expense-invalid":"Gasto inválido.",
+
+
+        "BASEREST":"",
+        "error-unauthorized-operation":"Esta operación requiere autenticación.",
+
+
+        "USERREST":"",
+        "error-username-exists":"El nombre de usuario ya existe.",
+        "error-validation":"Errores de validación.",
+        "error-unauthorized-login":"No estás autorizado para iniciar sesión como otra persona que no seas tú.",
+
+
+        "GROUPREST":"",
+        "error-group-not-found":"Grupo no encontrado.",
+        "error-not-a-group-member":"No eres miembro de este grupo.",
+        "error-not-group-admin":"No eres el administrador de este grupo.",
+        "error-member-not-found":"Miembro no encontrado.",
+
+
+        "EXPENSEREST":"",
+        "error-expense-not-found":"Gasto no encontrado.",
+        "error-expense-not-belong-to-group":"El gasto no pertenece al grupo especificado.",
+        "error-expense-invalid-participant-or-amount":"Participante o monto inválido de ",
+        "error-unauthorized-update-expense":"No estás autorizado para actualizar este gasto.",
+        "error-unauthorized-delete-expense":"No estás autorizado para eliminar este gasto.",
+
+
+        "general-error":"Error inesperado, por favor intenta nuevamente más tarde."
+    }
 }

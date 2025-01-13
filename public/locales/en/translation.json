@@ -115,5 +115,81 @@
 
     "LANGUAGES":"",
     "english":"English",
-    "spanish":"Spanish"
+    "spanish":"Spanish",
+
+    "message": {
+        "USERREST":"",
+        "register-successfully":"User registered successfully.",
+        "login-successfully":"Hello ",
+        
+        
+        "GROUPREST":"",
+        "group-delete-successfully":"Group deleted successfully.",
+        
+        
+        "EXPENSEREST":"",
+        "expense-delete-successfully":"Expense deleted successfully."
+    },
+
+    "error": {
+        "REGISTER/LOGIN":"",
+        "error-username-required":"Username is mandatory.",
+        "error-username-min-length":"Username must be at least 5 characters length.",
+        "error-username-no-spaces":"Username must have no spaces.",
+        "error-email-required":"Email is mandatory.",
+        "error-email-format":"Email must have a valid format, e.g., user@domain.",
+        "error-password-required":"Password is mandatory.",
+        "error-password-min-length":"Password must be at least 5 characters length.",
+        "error-user-invalid":"User invalid.",
+        
+        
+        "GROUP":"",
+        "error-group-name-required":"Group name is mandatory.",
+        "error-group-description-required":"Group description is mandatory.",
+        "error-group-admin-required":"Admin is mandatory.",
+        "error-group-min-members":"Group must have at least two members.",
+        "error-group-balance-numeric":"Balance must be numeric.",
+        "error-group-id-required":"Group id is mandatory.",
+        "error-group-invalid":"Invalid group.",
+        
+        
+        "EXPENSE":"",
+        "error-expense-description-required":"Expense description is mandatory.",
+        "error-expense-amount-greater-than-zero":"Total amount must be greater than zero.",
+        "error-expense-group-required":"Group is mandatory.",
+        "error-expense-payer-required":"Payer is mandatory.",
+        "error-expense-min-participants":"At least one participant is required.",
+        "error-expense-amount-invalid":"Each participant must have a valid amount.",
+        "error-expense-total-amount-invalid":"The sum of participants' amounts must equal the total amount.",
+        "error-expense-id-required":"Expense id is mandatory.",
+        "error-expense-invalid":"Invalid expense.",
+        
+        
+        "BASEREST":"",
+        "error-unauthorized-operation":"This operation requires authentication.",
+        
+        
+        "USERREST":"",
+        "error-username-exists":"Username already exists.",
+        "error-validation":"Validation errors.",
+        "error-unauthorized-login":"You are not authorized to login as anyone but you.",
+        
+
+        "GROUPREST":"",
+        "error-group-not-found":"Group not found.",
+        "error-not-a-group-member":"You are not a member of this group.",
+        "error-not-group-admin":"You are not the admin of this group.",
+        "error-member-not-found":"Member not found.",
+        
+        
+        "EXPENSEREST":"",
+        "error-expense-not-found":"Expense not found.",
+        "error-expense-not-belong-to-group":"Expense does not belong to the specified group.",
+        "error-expense-invalid-participant-or-amount":"Invalid participant or amount of ",
+        "error-unauthorized-update-expense":"You are not authorized to update this expense.",
+        "error-unauthorized-delete-expense":"You are not authorized to delete this expense.",
+
+
+        "general-error":"Error unexpected, please try again later."
+    }
 }
