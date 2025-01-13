@@ -70,10 +70,9 @@ const AddGroup = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            required
           />
         </label>
-        {errors.name && <div className="error-message">{errors.name}</div>}
+        {errors.name && <div className="error-message">{t(`error.${errors.name}`)}</div>}
 
         <label>
           {t('form-group-description')}
@@ -86,7 +85,7 @@ const AddGroup = () => {
           ></textarea>
         </label>
         {errors.description && (
-          <div className="error-message">{errors.description}</div>
+          <div className="error-message">{t(`error.${errors.description}`)}</div>
         )}
 
         <div id="members-container">
@@ -112,14 +111,15 @@ const AddGroup = () => {
           {t('form-add-participants')}
         </button>
         {errors.members && (
-          <div className="error-message">{Array.isArray(errors.members) ? errors.members.join(", ") : errors.members}</div>
+          <div className="error-message">{Array.isArray(errors.members) ? errors.members.map(error => t(`error.${error}`)).join(", ") 
+          : t(`error.${errors.members}`)}</div>
         )}
 
 
         <button type="submit" id="create-group">
           {t('form-create-group')}
         </button>
-        {errors.general && <div className="error-message">{errors.general}</div>}
+        {errors.general && <div className="error-message">{t(`error.${errors.general}`)}</div>}
       </form>
 
       <div className="back-button">
