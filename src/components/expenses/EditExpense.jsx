@@ -89,7 +89,6 @@ const EditExpense = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
     const participantsData = selectedMembers.reduce((acc, username) => {
       acc[username] = participantAmounts[username] || "0.00";
@@ -98,7 +97,7 @@ const EditExpense = () => {
 
     const expenseData = {
       description,
-      totalAmount: parseFloat((totalAmount || 0).toFixed(2)),
+      totalAmount: parseFloat((Number(totalAmount) || 0).toFixed(2)),
       payer,
       participants: participantsData,
     };

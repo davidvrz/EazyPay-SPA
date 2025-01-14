@@ -48,4 +48,5 @@
 .movement-amount {
   font-weight: bold;
   color: #333;
+  margin-left: 10px; /* Agrega margen a la izquierda para separarlo */
 }

@@ -79,7 +79,7 @@ const AddExpense = () => {
 
     const expenseData = {
       description,
-      totalAmount: parseFloat((totalAmount || 0).toFixed(2)), // Asegúrate de que el totalAmount esté en formato string con dos decimales
+      totalAmount: parseFloat((Number(totalAmount) || 0).toFixed(2)),
       payer,
       participants: participantsData, // Aquí enviamos los participantes en el formato correcto
     };
@@ -104,7 +104,6 @@ const AddExpense = () => {
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            
           />
         </label>
 

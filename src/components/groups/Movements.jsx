@@ -55,7 +55,7 @@ const Movements = () => {
               <span className="movement-payer">{movement.from}</span>
               <span className="movement-action">{t('movement_debts')}</span>
               <span className="movement-receiver">{movement.to}</span>
-              <span className="movement-amount">{movement.amount} €</span>
+              <span className="movement-amount">{movement.amount.toFixed(2)} €</span>
             </li>
           ))}
         </ul>
